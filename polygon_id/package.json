@@ -4,7 +4,8 @@
   "description": "local-pro backend",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "ts-node  index.ts "
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/EthGlobalLisbon2023/local-pro/issues"
   },
-  "homepage": "https://github.com/EthGlobalLisbon2023/local-pro#readme"
+  "homepage": "https://github.com/EthGlobalLisbon2023/local-pro#readme",
+  "dependencies": {
+    "@0xpolygonid/js-sdk": "^1.0.0-beta.7",
+    "@iden3/js-jwz": "^1.0.0-beta.2",
+    "dotenv": "^16.0.3",
+    "ethers": "^6.3.0",
+    "ts-node": "^10.9.1"
+  }
 }
