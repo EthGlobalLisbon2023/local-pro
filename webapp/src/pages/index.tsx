@@ -109,6 +109,8 @@ const Home: NextPage = () => {
 
           const addr = await signer.getAddress();
 
+          
+
           console.log("addr", addr);
 
           const balance = await client.getBalance(addr);
