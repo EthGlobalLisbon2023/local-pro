@@ -6,6 +6,27 @@ import { SafeAuthKit, Web3AuthModalPack } from "@safe-global/auth-kit";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { type Web3AuthOptions } from "@web3auth/modal";
 import { CHAIN_NAMESPACES, WALLET_ADAPTERS } from "@web3auth/base";
+import Safe, {
+  EthersAdapter,
+  SafeAccountConfig,
+  SafeFactory,
+} from "@safe-global/protocol-kit";
+
+const fetchCreateSafe = async (owner_addr: string) => {
+  try {
+    console.log("feetching");
+    const response = await fetch(`/api/create-safe?owner_addr=${owner_addr}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
 // import { ethers } from "./dist/ethers.min.js";
 // import { ethers } from "https://cdn.ethers.io/lib/ethers-5.2.esm.min.js";
 // if (typeof window != "undefined") {
@@ -107,17 +128,36 @@ const Home: NextPage = () => {
           const client = new ethers.providers.Web3Provider(provider);
           const signer = await client.getSigner();
 
+          const ethAdapter = new EthersAdapter({
+            ethers,
+            signerOrProvider: signer,
+          });
           const addr = await signer.getAddress();
 
-          
+          const safeFactory = await SafeFactory.create({ ethAdapter });
+
+          const safeAccountConfig: SafeAccountConfig = {
+            owners: [addr],
+            threshold: 1,
+            // ... (Optional params)
+            // https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#deploysafe
+          };
+
+          const safe: Safe = await safeFactory.deploySafe({
+            safeAccountConfig,
+          });
+          console.log("ss", safe);
+
+          // await fetchCreateSafe(addr);
 
           console.log("addr", addr);
 
           const balance = await client.getBalance(addr);
-          const prettyBal = ethers.utils.formatEther(balance)
-          
+
+          const prettyBal = ethers.utils.formatEther(balance);
+
           console.log("bal", prettyBal, balance);
-          setBalance(prettyBal)
+          setBalance(prettyBal);
         }
       }
     }
