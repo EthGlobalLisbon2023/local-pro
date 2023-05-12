@@ -1,0 +1,19 @@
+{
+  "name": "polygon_id",
+  "version": "1.0.0",
+  "description": "local-pro backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/EthGlobalLisbon2023/local-pro.git"
+  },
+  "author": "Sergey Gerodes, Vincenzo Incutti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EthGlobalLisbon2023/local-pro/issues"
+  },
+  "homepage": "https://github.com/EthGlobalLisbon2023/local-pro#readme"
+}
