@@ -101,6 +101,29 @@ const web3AuthModalPack = new Web3AuthModalPack(
 // // Get the provider
 // safeAuthKit.getProvider();
 
+const createSafe = async (ethers: any, signer: any, addr: string) => {
+  const ethAdapter = new EthersAdapter({
+    ethers,
+    signerOrProvider: signer,
+  });
+
+  console.log("creating fact");
+
+  const safeFactory = await SafeFactory.create({ ethAdapter });
+
+  const safeAccountConfig: SafeAccountConfig = {
+    owners: [addr],
+    threshold: 1,
+  };
+  console.log("deploying safe");
+
+  const safe: Safe = await safeFactory.deploySafe({
+    safeAccountConfig,
+  });
+
+  return safe;
+};
+
 let calledInitSafeAuth = false;
 let calledGetBal = false;
 
@@ -130,6 +153,7 @@ const Home: NextPage = () => {
           const client = new ethers.providers.Web3Provider(provider);
           const signer = await client.getSigner();
           const addr = await signer.getAddress();
+          console.log("addr", addr);
 
           const balance = await client.getBalance(addr);
           const prettyBal = ethers.utils.formatEther(balance);
@@ -138,28 +162,7 @@ const Home: NextPage = () => {
 
           // 0x4153322fAFce40e46d0f05F60539655eB1c90c30
 
-          const ethAdapter = new EthersAdapter({
-            ethers,
-            signerOrProvider: signer,
-          });
-
-          console.log("addr", addr);
-
-          console.log("creating fact");
-
-          const safeFactory = await SafeFactory.create({ ethAdapter });
-
-          const safeAccountConfig: SafeAccountConfig = {
-            owners: [addr],
-            threshold: 1,
-            // ... (Optional params)
-            // https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#deploysafe
-          };
-          console.log("asdasd");
-
-          const safe: Safe = await safeFactory.deploySafe({
-            safeAccountConfig,
-          });
+          const safe: Safe = await createSafe(ethers, signer, addr);
           console.log("SAFE CREATED!!", safe);
 
           // await fetchCreateSafe(addr);
