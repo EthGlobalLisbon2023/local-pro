@@ -115,10 +115,10 @@ const Home: NextPage = () => {
           console.log("addr", addr);
 
           const balance = await client.getBalance(addr);
-          // console.log(provider?.host);
-          // const balance = await provider.getBalance(usrinfo.address);
-          console.log("bal", balance);
-          //   setBalance(ethers.utils.formatEther(balance));
+          const prettyBal = ethers.utils.formatEther(balance)
+          
+          console.log("bal", prettyBal, balance);
+          setBalance(prettyBal)
         }
       }
     }
