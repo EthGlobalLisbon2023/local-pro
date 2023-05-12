@@ -51,8 +51,8 @@ const options: Web3AuthOptions = {
   web3AuthNetwork: "testnet",
   chainConfig: {
     chainNamespace: CHAIN_NAMESPACES.EIP155,
-    chainId: "0x5", //chainId,
-    rpcTarget: `https://rpc.ankr.com/eth_goerli`, //https://www.alchemy.com/overviews/mumbai-testnet
+    chainId: "0x5", //"0x13881", //"0x5", //chainId,
+    rpcTarget: `https://rpc.ankr.com/eth_goerli`, // "https://polygon-mumbai.g.alchemy.com/v2/B2gs6BuJ9M2EnmspBUvOgqETQjkIUSTk", ///`https://rpc.ankr.com/eth_goerli`, //https://www.alchemy.com/overviews/mumbai-testnet
   },
   uiConfig: {
     theme: "dark",
@@ -117,7 +117,9 @@ const Home: NextPage = () => {
     async function initSafeAuth() {
       if (safeAuthKit == null && calledInitSafeAuth === false) {
         calledInitSafeAuth = true;
-        const safeKit = await SafeAuthKit.init(web3AuthModalPack);
+        const safeKit = await SafeAuthKit.init(web3AuthModalPack, {
+          txServiceUrl: "https://safe-transaction-goerli.safe.global/",
+        });
         setSafeAuthKit(safeKit);
 
         const provider = safeKit.getProvider();
@@ -127,12 +129,23 @@ const Home: NextPage = () => {
           calledGetBal = true;
           const client = new ethers.providers.Web3Provider(provider);
           const signer = await client.getSigner();
+          const addr = await signer.getAddress();
+
+          const balance = await client.getBalance(addr);
+          const prettyBal = ethers.utils.formatEther(balance);
+          console.log("bal", prettyBal, balance);
+          setBalance(prettyBal);
+
+          // 0x4153322fAFce40e46d0f05F60539655eB1c90c30
 
           const ethAdapter = new EthersAdapter({
             ethers,
             signerOrProvider: signer,
           });
-          const addr = await signer.getAddress();
+
+          console.log("addr", addr);
+
+          console.log("creating fact");
 
           const safeFactory = await SafeFactory.create({ ethAdapter });
 
@@ -142,22 +155,14 @@ const Home: NextPage = () => {
             // ... (Optional params)
             // https://github.com/safe-global/safe-core-sdk/tree/main/packages/protocol-kit#deploysafe
           };
+          console.log("asdasd");
 
           const safe: Safe = await safeFactory.deploySafe({
             safeAccountConfig,
           });
-          console.log("ss", safe);
+          console.log("SAFE CREATED!!", safe);
 
           // await fetchCreateSafe(addr);
-
-          console.log("addr", addr);
-
-          const balance = await client.getBalance(addr);
-
-          const prettyBal = ethers.utils.formatEther(balance);
-
-          console.log("bal", prettyBal, balance);
-          setBalance(prettyBal);
         }
       }
     }
@@ -187,8 +192,9 @@ const Home: NextPage = () => {
             <p>Your balance: {balance}</p>
           </div>
           <button
-            onClick={() => {
-              safeAuthKit.signIn();
+            onClick={async () => {
+              const signinRet = await safeAuthKit.signIn();
+              console.log("SIGNIN", signinRet);
             }}
           >
             Sign In
