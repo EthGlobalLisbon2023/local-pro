@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "ethers": "npm:null@^2.0.0"
+  }
+}
