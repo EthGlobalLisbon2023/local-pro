@@ -1,6 +1,3 @@
-//require('dotenv').config()
-//import * as dotenv from 'dotenv';
-//dotenv.config();
 import {
     CredentialStorage, defaultEthConnectionConfig, EthStateStorage,
     Identity,
@@ -9,8 +6,8 @@ import {
     InMemoryMerkleTreeStorage,
     Profile, W3CCredential
 } from "@0xpolygonid/js-sdk";
-
-
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 const dataStorage = {
     credential: new CredentialStorage(new InMemoryDataSource<W3CCredential>()),
