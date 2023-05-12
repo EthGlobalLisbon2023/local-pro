@@ -101,9 +101,6 @@ const Home: NextPage = () => {
 
         const provider = safeKit.getProvider();
         console.log("prv", provider, ethers);
-        // safeKit.
-        // const usrinfo = await safeKit.getUserInfo();
-        // console.log("usrinfo", usrinfo);
 
         if (provider != null && ethers != null && calledGetBal === false) {
           calledGetBal = true;
