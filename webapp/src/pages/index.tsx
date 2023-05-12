@@ -160,12 +160,8 @@ const Home: NextPage = () => {
           console.log("bal", prettyBal, balance);
           setBalance(prettyBal);
 
-          // 0x4153322fAFce40e46d0f05F60539655eB1c90c30
-
           const safe: Safe = await createSafe(ethers, signer, addr);
           console.log("SAFE CREATED!!", safe);
-
-          // await fetchCreateSafe(addr);
         }
       }
     }
