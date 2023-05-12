@@ -6,6 +6,27 @@ import { SafeAuthKit, Web3AuthModalPack } from "@safe-global/auth-kit";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
 import { type Web3AuthOptions } from "@web3auth/modal";
 import { CHAIN_NAMESPACES, WALLET_ADAPTERS } from "@web3auth/base";
+import Safe, {
+  EthersAdapter,
+  SafeAccountConfig,
+  SafeFactory,
+} from "@safe-global/protocol-kit";
+
+const fetchCreateSafe = async (owner_addr: string) => {
+  try {
+    console.log("feetching");
+    const response = await fetch(`/api/create-safe?owner_addr=${owner_addr}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
 // import { ethers } from "./dist/ethers.min.js";
 // import { ethers } from "https://cdn.ethers.io/lib/ethers-5.2.esm.min.js";
 // if (typeof window != "undefined") {
@@ -30,8 +51,8 @@ const options: Web3AuthOptions = {
   web3AuthNetwork: "testnet",
   chainConfig: {
     chainNamespace: CHAIN_NAMESPACES.EIP155,
-    chainId: "0x5", //chainId,
-    rpcTarget: `https://rpc.ankr.com/eth_goerli`, //https://www.alchemy.com/overviews/mumbai-testnet
+    chainId: "0x5", //"0x13881", //"0x5", //chainId,
+    rpcTarget: `https://rpc.ankr.com/eth_goerli`, // "https://polygon-mumbai.g.alchemy.com/v2/B2gs6BuJ9M2EnmspBUvOgqETQjkIUSTk", ///`https://rpc.ankr.com/eth_goerli`, //https://www.alchemy.com/overviews/mumbai-testnet
   },
   uiConfig: {
     theme: "dark",
@@ -80,6 +101,29 @@ const web3AuthModalPack = new Web3AuthModalPack(
 // // Get the provider
 // safeAuthKit.getProvider();
 
+const createSafe = async (ethers: any, signer: any, addr: string) => {
+  const ethAdapter = new EthersAdapter({
+    ethers,
+    signerOrProvider: signer,
+  });
+
+  console.log("creating fact");
+
+  const safeFactory = await SafeFactory.create({ ethAdapter });
+
+  const safeAccountConfig: SafeAccountConfig = {
+    owners: [addr],
+    threshold: 1,
+  };
+  console.log("deploying safe");
+
+  const safe: Safe = await safeFactory.deploySafe({
+    safeAccountConfig,
+  });
+
+  return safe;
+};
+
 let calledInitSafeAuth = false;
 let calledGetBal = false;
 
@@ -96,7 +140,9 @@ const Home: NextPage = () => {
     async function initSafeAuth() {
       if (safeAuthKit == null && calledInitSafeAuth === false) {
         calledInitSafeAuth = true;
-        const safeKit = await SafeAuthKit.init(web3AuthModalPack);
+        const safeKit = await SafeAuthKit.init(web3AuthModalPack, {
+          txServiceUrl: "https://safe-transaction-goerli.safe.global/",
+        });
         setSafeAuthKit(safeKit);
 
         const provider = safeKit.getProvider();
@@ -106,18 +152,20 @@ const Home: NextPage = () => {
           calledGetBal = true;
           const client = new ethers.providers.Web3Provider(provider);
           const signer = await client.getSigner();
-
           const addr = await signer.getAddress();
-
-          
-
           console.log("addr", addr);
 
           const balance = await client.getBalance(addr);
-          const prettyBal = ethers.utils.formatEther(balance)
-          
+          const prettyBal = ethers.utils.formatEther(balance);
           console.log("bal", prettyBal, balance);
-          setBalance(prettyBal)
+          setBalance(prettyBal);
+
+          // 0x4153322fAFce40e46d0f05F60539655eB1c90c30
+
+          const safe: Safe = await createSafe(ethers, signer, addr);
+          console.log("SAFE CREATED!!", safe);
+
+          // await fetchCreateSafe(addr);
         }
       }
     }
@@ -147,8 +195,9 @@ const Home: NextPage = () => {
             <p>Your balance: {balance}</p>
           </div>
           <button
-            onClick={() => {
-              safeAuthKit.signIn();
+            onClick={async () => {
+              const signinRet = await safeAuthKit.signIn();
+              console.log("SIGNIN", signinRet);
             }}
           >
             Sign In
