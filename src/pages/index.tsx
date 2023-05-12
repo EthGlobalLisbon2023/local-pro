@@ -2,6 +2,64 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
+import { SafeAuthKit, Web3AuthModalPack } from "@safe-global/auth-kit";
+import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
+
+// const options: Web3AuthOptions = {
+//   clientId: process.env.REACT_APP_WEB3AUTH_CLIENT_ID,
+//   web3AuthNetwork: "testnet",
+//   chainConfig: {
+//     chainNamespace: CHAIN_NAMESPACES.EIP155,
+//     chainId: chainId,
+//     rpcTarget: rpcTarget,
+//   },
+//   uiConfig: {
+//     theme: "dark",
+//     loginMethodsOrder: ["google", "facebook"],
+//   },
+// };
+
+// const modalConfig = {
+//   [WALLET_ADAPTERS.TORUS_EVM]: {
+//     label: "torus",
+//     showOnModal: false,
+//   },
+//   [WALLET_ADAPTERS.METAMASK]: {
+//     label: "metamask",
+//     showOnDesktop: true,
+//     showOnMobile: false,
+//   },
+// };
+
+// const openloginAdapter = new OpenloginAdapter({
+//   loginSettings: {
+//     mfaLevel: "mandatory",
+//   },
+//   adapterSettings: {
+//     uxMode: "popup",
+//     whiteLabel: {
+//       name: "Safe",
+//     },
+//   },
+// });
+
+// const web3AuthModalPack = new Web3AuthModalPack(
+//   options,
+//   [openloginAdapter],
+//   modalConfig
+// );
+
+// const safeAuthKit = await SafeAuthKit.init(web3AuthModalPack);
+
+// // Allow to login and get the derived EOA
+// safeAuthKit.signIn();
+
+// // Logout
+// safeAuthKit.signOut();
+
+// // Get the provider
+// safeAuthKit.getProvider();
+
 const Home: NextPage = () => {
   return (
     <>
@@ -22,6 +80,7 @@ const Home: NextPage = () => {
               target="_blank"
             >
               <h3 className="text-2xl font-bold">First Steps →</h3>
+              <button>Hello</button>
               <div className="text-lg">
                 Just the basics - Everything you need to know to set up your
                 database and authentication.
