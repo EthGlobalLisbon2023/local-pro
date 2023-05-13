@@ -16,15 +16,52 @@ import { CardButton } from "n/components/card-button";
 import { roleAbi } from "n/chain-utils/config";
 import { setupContract } from "n/chain-utils";
 import VerificationSection from "n/components/verification-section";
+import XIcon from "@heroicons/react/24/solid/XMarkIcon";
 
 const Home: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
+  const [isVisible, setIsVisible] = React.useState(true);
+  const [shouldRender, setShouldRender] = React.useState(true);
+
+  React.useEffect(() => {
+    const fadeTimer = setTimeout(() => {
+      setIsVisible(false);
+    }, 5000);
+
+    const unmountTimer = setTimeout(() => {
+      setShouldRender(false);
+    }, 6500); // slightly longer than the transition duration
+
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(unmountTimer);
+    };
+  }, []);
 
   return (
     <>
       <Layout>
         <div className="flex flex-col gap-4">
+          {shouldRender && (
+            <div
+              className={`custom-class relative flex items-center justify-between rounded-lg bg-purple-600 py-3 transition-opacity duration-[1.5s] ease-in-out ${
+                isVisible ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <div className="flex w-full flex-col items-center justify-center text-xl">
+                <span className="mx-auto font-zilla text-white">
+                  Congratulations!
+                </span>
+                <span className="mx-auto text-white text-sm">
+                  You have unlocked your first Task Package!
+                </span>
+              </div>
+
+              <XIcon className="absolute right-2 top-2 h-5 w-5 cursor-pointer text-white" />
+            </div>
+          )}
+
           <Card className="gap-2">
             <JobHeader
               logo="/logo-ams.png"
