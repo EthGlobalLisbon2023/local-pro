@@ -1,6 +1,6 @@
 import { Alchemy, Network } from "alchemy-sdk";
 
-const setupContract = async (contractAddress: string, abi: any, ) => {
+export const setupContract = async (contractAddress: string, abi: any, ) => {
   const settings = {
     apiKey: "B2gs6BuJ9M2EnmspBUvOgqETQjkIUSTk",
     network: Network.ETH_GOERLI,

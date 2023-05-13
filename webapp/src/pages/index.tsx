@@ -8,6 +8,8 @@ import JobCard from "n/components/card/jobcard";
 import { AuthContext } from "n/components/authprovider";
 import { createAlchemyWeb3 } from "@alch/alchemy-web3";
 import { Alchemy, Network } from "alchemy-sdk";
+import { setupContract } from "n/chain-utils";
+import { jobIndexerAddress, roleContractAddress } from "n/chain-utils/config";
 
 const Home: NextPage = () => {
   return (
@@ -159,52 +161,19 @@ const JobsList = () => {
   const [jobs, setJobs] = React.useState([]);
 
   React.useEffect(() => {
-    async function getJobs(
-      contractAddress = "0x0B0dA0987d545dB35686C31bBdE282Fae29147EA",
-      abi = jobIndexerAbi
-    ) {
-      if (safeAuthKit != null) {
-        const settings = {
-          apiKey: "B2gs6BuJ9M2EnmspBUvOgqETQjkIUSTk",
-          network: Network.ETH_GOERLI,
-        };
+    async function getJobs() {
+      const indexerContract = await setupContract(
+        jobIndexerAddress,
+        jobIndexerAbi
+      );
 
-        const alchemy = new Alchemy(settings);
-        const provider = await alchemy.config.getProvider();
-
-        // // const provider = await safeAuthKit.getProvider();
-        // const alchemyUrl =
-        //   "https://polygon-mumbai.g.alchemy.com/v2/B2gs6BuJ9M2EnmspBUvOgqETQjkIUSTk";
-        // // const provider = createAlchemyWeb3(alchemyUrl);
-        // const signer = new (window as any).ethers.Wallet();
-        // const contractAddress = "0x0B0dA0987d545dB35686C31bBdE282Fae29147EA";
-        console.log("getting contract", provider);
-        const contract = new (window as any).ethers.Contract(
-          contractAddress,
-          abi,
-          provider
-        );
-        console.log("created contract");
-
-        try {
-          // Call the function
-          // const result = await contract.getAllAddresses();
-
-          const contract = setupContract()
-
-          const result = await contract.getAllRequirements();
-          console.log("RESS", result); // Process the returned result as needed
-
-          // 0xf96156549083ad7f1ad506dd7C58292424aaC290
-        } catch (error) {
-          console.log("my err");
-          console.error(error);
-        }
-      }
+      const allJobs = await indexerContract.getAllAddresses();
+      console.log("alljobs", allJobs);
+      const rolesContract = await setupContract(allJobs[0], roleAbi);
+      const allRequirements = await rolesContract.getAllRequirements();
+      console.log("allRequirements", allRequirements);
     }
-
-    // getJobs();
-    getJobs("0xf96156549083ad7f1ad506dd7C58292424aaC290", roleAbi);
+    getJobs();
   }, [signInResult, safeAuthKit]);
 
   return (
