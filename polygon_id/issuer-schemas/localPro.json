@@ -3,8 +3,8 @@
   "type": "object",
   "$metadata": {
     "uris": {
-      "jsonLdContext": "https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/blob/main/polygon_id/issuer-schemas/localPro.json-ld",
-      "jsonSchema": "https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/blob/main/polygon_id/issuer-schemas/localPro.json"
+      "jsonLdContext": "https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/main/polygon_id/issuer-schemas/localPro.json-ld",
+      "jsonSchema": "https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/main/polygon_id/issuer-schemas/localPro.json"
     }
   },
   "required": [
