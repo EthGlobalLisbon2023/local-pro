@@ -6,8 +6,6 @@ import Link from "next/link";
 import Layout from "n/components/layout";
 import JobCard from "n/components/card/jobcard";
 import { AuthContext } from "n/components/authprovider";
-import { createAlchemyWeb3 } from "@alch/alchemy-web3";
-import { Alchemy, Network } from "alchemy-sdk";
 import { setupContract } from "n/chain-utils";
 import {
   jobIndexerAbi,
@@ -41,6 +39,7 @@ const JobsList = () => {
 
       const allJobs = await indexerContract.getAllAddresses();
       console.log("alljobs", allJobs);
+      setJobs(allJobs);
       const rolesContract = await setupContract(allJobs[0], roleAbi);
       const allRequirements = await rolesContract.getAllRequirements();
       console.log("allRequirements", allRequirements);
@@ -50,16 +49,18 @@ const JobsList = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <JobCard
-        id="123"
-        logo="/logo-ams.png"
-        title="Guitar Teacher"
-        subtitle="City of Amsterdam"
-        description="We are seeking a skilled and passionate music teacher to provide after-school guitar lessons to students between 12 and 16 years old. "
-        compensation="25$ per Lesson"
-        frequency="Weekly, 8 times"
-        jobsUnlocked="AMS Certified Teacher"
-      />
+      {jobs.map((el) => (
+        <JobCard
+          id={el}
+          logo="/logo-ams.png"
+          title="Guitar Teacher"
+          subtitle="City of Amsterdam"
+          description="We are seeking a skilled and passionate music teacher to provide after-school guitar lessons to students between 12 and 16 years old. "
+          compensation="25$ per Lesson"
+          frequency="Weekly, 8 times"
+          jobsUnlocked="AMS Certified Teacher"
+        />
+      ))}
 
       <JobCard
         id="321"
