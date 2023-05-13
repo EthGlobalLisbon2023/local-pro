@@ -2,7 +2,7 @@ import * as React from "react";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-
+import XIcon from "@heroicons/react/24/solid/XMarkIcon";
 import Layout from "n/components/layout";
 import JobCard from "n/components/card/jobcard";
 import { AuthContext } from "n/components/authprovider";
@@ -28,6 +28,8 @@ const Home: NextPage = () => {
 const JobsList = () => {
   const router = useRouter();
   const { isUnlocked } = router.query;
+  const [isVisible, setIsVisible] = React.useState(true);
+  const [shouldRender, setShouldRender] = React.useState(true);
 
   const { balance, signIn, signOut, signInResult, userInfo, safeAuthKit } =
     React.useContext(AuthContext);
@@ -93,14 +95,35 @@ const JobsList = () => {
     getJobs();
   }, [signInResult, safeAuthKit]);
 
+  React.useEffect(() => {
+    const fadeTimer = setTimeout(() => {
+      setIsVisible(false);
+    }, 5000);
+
+    const unmountTimer = setTimeout(() => {
+      setShouldRender(false);
+    }, 6500); // slightly longer than the transition duration
+
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(unmountTimer);
+    };
+  }, []);
+
   return (
     <div className="flex flex-col gap-4">
-      {isUnlocked === "true" && (
-        <div className="custom-class flex justify-center rounded-lg bg-purple-600 py-3 ">
-          <span className="text-white">You have unlocked 1 new job!</span>
+      {isUnlocked === "true" && shouldRender && (
+        <div
+          className={`custom-class relative flex items-center justify-between rounded-lg bg-purple-600 py-3 transition-opacity duration-[1.5s] ease-in-out ${
+            isVisible ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <span className="mx-auto text-white">
+            You have unlocked 1 new job!
+          </span>
+          <XIcon className="absolute right-2 top-2 h-5 w-5 cursor-pointer text-white" />
         </div>
       )}
-
       {isUnlocked !== "true" &&
         jobs.map((el) => (
           <JobCard
