@@ -1,11 +1,3 @@
-export interface Role {
-    id: number;
-    description: string;
-    hours_required: number;
-    tasks: Task[];
-    task_completion_criteria: xxxxx;
-}
-
 export interface Task {
     id: number;
     location: {
