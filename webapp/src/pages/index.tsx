@@ -20,15 +20,28 @@ const Home: NextPage = () => {
       </Head>
 
       <Layout>
-        <JobCard
-          logo="https://via.placeholder.com/100"
-          title="Guitar Teacher"
-          subtitle="City of Amsterdam"
-          description="This is a great job opportunity."
-          compensation="$100,000"
-          frequency="Full-time"
-          jobsUnlocked="AMS Certified Teacher"
-        />
+        <div className="flex flex-col gap-4">
+          <JobCard
+            logo="https://via.placeholder.com/100"
+            title="Guitar Teacher"
+            subtitle="City of Amsterdam"
+            description="This is a great job opportunity."
+            compensation="$100,000"
+            frequency="Full-time"
+            jobsUnlocked="AMS Certified Teacher"
+          />
+
+          <JobCard
+            logo="https://via.placeholder.com/100"
+            title="User Group Master"
+            subtitle="Ableton"
+            description="This is a great job opportunity."
+            compensation="$100,000"
+            frequency="Full-time"
+            jobsUnlocked="AMS Certified Teacher"
+            isLocked
+          />
+        </div>
       </Layout>
     </>
   );
