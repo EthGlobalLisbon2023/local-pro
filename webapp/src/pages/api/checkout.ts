@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { setupContract } from "n/chain-utils";
 import { roleAbi } from "n/chain-utils/config";
+import { serverSetupContract } from "server/utils";
 
 export default async function checkout(
   request: NextApiRequest,
@@ -19,16 +20,17 @@ export default async function checkout(
   }
 
   try {
-    const indexerContract = await setupContract(roleAddress, roleAbi);
-
+    console.log("pre contract");
+    const roleContract = await serverSetupContract(roleAddress, roleAbi);
+    console.log("setup contract");
     // Task completion logic:
     if (checkoutLocation == 1 && taskDuration == 1) {
-      const allJobs = await indexerContract.completeTask(userId);
+      const allJobs = await roleContract.completeTask(userId);
 
       // TODO: Now issue a task completed credential!
       // xxxxxxxxx
 
-      // TODO: Check if "Trusted Teacher" NFT has been unlocked and if so, auto-mint!
+      // TODO: Check if "Star Teacher" NFT has been unlocked and if so, auto-mint!
       // xxxxxxxxx
 
       response.status(200).send(allJobs);

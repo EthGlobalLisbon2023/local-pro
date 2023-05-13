@@ -1,6 +1,7 @@
 import { Alchemy, Network } from "alchemy-sdk";
+import { ethers } from "ethers";
 
-export const setupContract = async (contractAddress: string, abi: any, ) => {
+export const serverSetupContract = async (contractAddress: string, abi: any, ) => {
   const settings = {
     apiKey: "B2gs6BuJ9M2EnmspBUvOgqETQjkIUSTk",
     network: Network.ETH_GOERLI,
@@ -9,7 +10,7 @@ export const setupContract = async (contractAddress: string, abi: any, ) => {
   const alchemy = new Alchemy(settings);
   const provider = await alchemy.config.getProvider();
 
-  const contract = new (window as any).ethers.Contract(
+  const contract = new ethers.Contract(
     contractAddress,
     abi,
     provider
@@ -17,5 +18,3 @@ export const setupContract = async (contractAddress: string, abi: any, ) => {
 
   return contract
 };
-
-

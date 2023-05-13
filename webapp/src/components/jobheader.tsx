@@ -13,11 +13,11 @@ export const JobHeader = ({ logo, title, subtitle }: JobHeaderProps) => {
         alt="Company Logo"
         className="mr-4 h-16 w-16 rounded-lg object-cover"
       />
-      <div className="flex flex-col gap-1">
-        <Txt size="l" bold>
+      <div className="flex flex-col gap-0">
+        <Txt size="l" className="font-zilla text-2xl font-extrabold">
           {title}
         </Txt>
-        <Txt size="m" color="secondary">
+        <Txt size="m" color="secondary" className="font-semibold">
           {subtitle}
         </Txt>
       </div>

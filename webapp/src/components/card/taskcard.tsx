@@ -40,7 +40,7 @@ const JobCard: React.FC<JobCardProps> = ({
             This job requires
           </Txt>
           <Txt className="text-[#128FA3]" bold>
-            AMS Certified Teacher{" "}
+            AMS Trusted Teacher{" "}
           </Txt>
           <Txt size="m" bold>
             status
