@@ -22,9 +22,6 @@
     "id": {
       "type": "string"
     },
-    "isVerified": {
-      "type": "boolean"
-    },
     "issuer": {
       "type": [
         "string",
@@ -101,11 +98,8 @@
           "type": "string",
           "format": "uri"
         },
-        "birthday": {
-          "type": "integer"
-        },
-        "documentType": {
-          "type": "integer"
+        "isVerified": {
+          "type": "boolean"
         }
       }
     }

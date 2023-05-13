@@ -13,6 +13,7 @@
           "id": "@id",
           "type": "@type",
           "xsd": "http://www.w3.org/2001/XMLSchema#",
+          "kyc-vocab": "https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/localPro-4.md",
           "isVerified": {
             "@id": "kyc-vocab:isVerified",
             "@type": "xsd:boolean"
