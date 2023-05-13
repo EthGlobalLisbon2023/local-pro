@@ -22,7 +22,7 @@ const Home: NextPage = () => {
       <Layout>
         <div className="flex flex-col gap-4">
           <JobCard
-            logo="https://via.placeholder.com/100"
+            logo="logo-ams.png"
             title="Guitar Teacher"
             subtitle="City of Amsterdam"
             description="This is a great job opportunity."
@@ -32,7 +32,7 @@ const Home: NextPage = () => {
           />
 
           <JobCard
-            logo="https://via.placeholder.com/100"
+            logo="logo-ableton.png"
             title="User Group Master"
             subtitle="Ableton"
             description="This is a great job opportunity."
