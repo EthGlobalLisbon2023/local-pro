@@ -6,7 +6,7 @@
       "id": "@id",
       "type": "@type",
       "BackgroundCheck": {
-        "@id": "https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/main/polygon_id/issuer-schemas/localPro-2.json",
+        "@id": "https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/main/polygon_id/issuer-schemas/localPro-2.json#BackgroundCheck",
         "@context": {
           "@version": 1.1,
           "@protected": true,
