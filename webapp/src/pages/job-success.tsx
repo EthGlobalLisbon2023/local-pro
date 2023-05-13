@@ -44,7 +44,7 @@ const Home: NextPage = () => {
             </div>
             <CardButton
               onClick={() => {
-                router.push(`/`);
+                router.push(`/?isUnlocked=true`);
               }}
               text="Go to marketplace"
             />
