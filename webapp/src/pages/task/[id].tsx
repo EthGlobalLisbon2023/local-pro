@@ -49,16 +49,10 @@ const Home: NextPage = () => {
                 isVisible ? "opacity-100" : "opacity-0"
               }`}
             >
-              <div className="flex w-full flex-col items-center justify-center text-xl">
-                <span className="mx-auto font-zilla text-white">
-                  Congratulations!
+             
+                <span className="mx-auto text-white ">
+                  You've unlocked your first Task Package!
                 </span>
-                <span className="mx-auto text-white text-sm">
-                  You have unlocked your first Task Package!
-                </span>
-              </div>
-
-              <XIcon className="absolute right-2 top-2 h-5 w-5 cursor-pointer text-white" />
             </div>
           )}
 
