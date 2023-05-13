@@ -27,32 +27,18 @@ const Home: NextPage = () => {
       <Layout>
         <div className="flex flex-col gap-4">
           <Card className="gap-2">
-            <JobHeader
-              logo="/logo-ams.png"
-              title="Guitar Teacher"
-              subtitle="City of Amsterdam"
-            />
-            {/* <div className="my-3">
-              <Txt size="l" bold>
-                8 of 8 Lessons 
-              </Txt>
-            </div> */}
-
-            <img className="" src="/map.png"></img>
-            <div className=" flex justify-center mt-8">
-              <Txt size="m">
-                Time left to check in
-              </Txt>
-            </div>
             <div className="mb-8 flex justify-center">
-              <CountdownTimer seconds={60 * 8} />
+              <Txt size="m" className="text-3xl" bold>
+                Congratulations!
+              </Txt>
             </div>
+            <img className="mb-4" src="/rocket.gif"></img>
 
             <CardButton
               onClick={() => {
-                router.push(`/checkout/${id}`);
+                router.push(`/`);
               }}
-              text="Check In"
+              text="Home"
             />
           </Card>
         </div>

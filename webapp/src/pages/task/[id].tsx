@@ -64,7 +64,7 @@ const Home: NextPage = () => {
               onClick={() => {
                 router.push("/checkin/" + id);
               }}
-              text="Go To Checkin"
+              text="Go To Check In"
             />
           </Card>
         </div>

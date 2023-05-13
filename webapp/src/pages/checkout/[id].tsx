@@ -32,27 +32,19 @@ const Home: NextPage = () => {
               title="Guitar Teacher"
               subtitle="City of Amsterdam"
             />
-            {/* <div className="my-3">
-              <Txt size="l" bold>
-                8 of 8 Lessons 
-              </Txt>
-            </div> */}
 
-            <img className="" src="/map.png"></img>
-            <div className=" flex justify-center mt-8">
-              <Txt size="m">
-                Time left to check in
-              </Txt>
+            <div className="mt-32 flex justify-center">
+              <Txt size="m">Task in progress</Txt>
             </div>
-            <div className="mb-8 flex justify-center">
-              <CountdownTimer seconds={60 * 8} />
+            <div className="mb-32 flex justify-center">
+              <CountdownTimer seconds={0} countUp />
             </div>
 
             <CardButton
               onClick={() => {
-                router.push(`/checkout/${id}`);
+                router.push(`/job-success`);
               }}
-              text="Check In"
+              text="End Task"
             />
           </Card>
         </div>

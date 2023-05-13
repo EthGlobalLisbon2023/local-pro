@@ -1,30 +1,28 @@
 import React, { useEffect, useState } from "react";
 
-const CountdownTimer = ({ seconds }) => {
-  const [timeLeft, setTimeLeft] = useState(seconds);
+const Timer = ({ seconds, countUp }: any) => {
+  const [time, setTime] = useState(seconds);
 
   useEffect(() => {
-    if (!timeLeft) return;
-
     const intervalId = setInterval(() => {
-      setTimeLeft(timeLeft - 1);
+      setTime((prevTime) => (countUp ? prevTime + 1 : prevTime - 1));
     }, 1000);
 
+    // clear interval on unmount
     return () => clearInterval(intervalId);
-  }, [timeLeft]);
+  }, [countUp]);
 
   const formatTime = (time) => {
-    const hours = Math.floor(time / 3600);
-    const minutes = Math.floor((time % 3600) / 60);
-    const seconds = time % 60;
+    const hours = Math.floor(Math.abs(time) / 3600);
+    const minutes = Math.floor((Math.abs(time) % 3600) / 60);
+    const seconds = Math.abs(time) % 60;
 
-    // Pad start with zeros to always show two digits
-    return `${minutes.toString().padStart(2, "0")}:${seconds
+    return `${hours.toString().padStart(2, "0")}:${minutes
       .toString()
-      .padStart(2, "0")}`;
+      .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   };
 
-  return <p className="text-5xl">{formatTime(timeLeft)}</p>;
+  return <p className="text-5xl">{formatTime(time)}</p>;
 };
 
-export default CountdownTimer;
+export default Timer;
