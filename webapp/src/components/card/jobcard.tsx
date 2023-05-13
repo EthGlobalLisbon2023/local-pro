@@ -35,14 +35,14 @@ const JobCard: React.FC<JobCardProps> = ({
       <JobHeader logo={logo} title={title} subtitle={subtitle} />
 
       {isLocked ? (
-        <div className="mt-3 flex flex-col items-center justify-center rounded-lg bg-[#CBD0DD] p-2">
-          <Txt size="m" bold>
+        <div className="mt-3 flex flex-col items-center justify-center rounded-lg bg-[#d8ddea] p-2">
+          <Txt size="s" bold className="">
             This job requires
           </Txt>
-          <Txt className="text-[#128FA3]" bold>
+          <Txt className="text-[#128FA3] font-zilla text-lg" bold>
             AMS Trusted Teacher{" "}
           </Txt>
-          <Txt size="m" bold>
+          <Txt size="s" bold>
             status
           </Txt>
         </div>
@@ -55,13 +55,13 @@ const JobCard: React.FC<JobCardProps> = ({
           <div className="my-4 border-b border-t border-dashed border-gray-200 py-4">
             <div className="flex justify-between px-8">
               <div className="flex flex-col items-center justify-center">
-                <Txt size="s" color="secondary" className="mb-1">
+                <Txt size="s" color="secondary" className="mb-1 font-semibold">
                   Compensation
                 </Txt>
                 <Txt size="m">{compensation}</Txt>
               </div>
               <div className="flex flex-col items-center justify-center">
-                <Txt size="s" color="secondary" className="mb-1">
+                <Txt size="s" color="secondary" className="mb-1 font-semibold">
                   Frequency
                 </Txt>
                 <Txt size="m">{frequency}</Txt>
@@ -73,13 +73,13 @@ const JobCard: React.FC<JobCardProps> = ({
             onClick={() => router.push("verify/" + id)}
             text={"Apply"}
           />
-         
+
           {jobsUnlocked && (
             <div className="mt-3 flex flex-col items-center justify-center ">
-              <Txt size="m" bold>
+              <Txt size="s" bold className="">
                 Completion of task unlocks
               </Txt>
-              <Txt className="text-[#128FA3]">{jobsUnlocked}</Txt>
+              <Txt className="text-[#128FA3] font-zilla text-lg" bold>{jobsUnlocked}</Txt>
             </div>
           )}
         </>
