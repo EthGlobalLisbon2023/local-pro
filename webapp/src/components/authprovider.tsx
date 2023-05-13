@@ -162,6 +162,9 @@ const AuthProvider = ({ children }: any) => {
       console.log("signInResult", signInResult);
       if (signInResult?.safes?.length === 0) {
         // TODO: Implement createSafe logic
+        const provider = safeAuthKit.getProvider();
+        const client = new ethers.providers.Web3Provider(provider);
+        const signer = await client.getSigner();
         const addr = await signer.getAddress();
         const safe: Safe = await createSafe(ethers, signer, addr);
         console.log("SAFE CREATED!!", safe);
@@ -169,7 +172,7 @@ const AuthProvider = ({ children }: any) => {
     }
 
     initCreateSafe();
-  }, [signInResult]);
+  }, [signInResult, safeAuthKit]);
 
   const signIn = async () => {
     if (safeAuthKit != null) {
