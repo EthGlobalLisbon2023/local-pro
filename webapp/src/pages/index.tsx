@@ -148,8 +148,17 @@ const JobsList = () => {
         frequency="1x month"
         isLocked={!isUnlocked}
       />
-
-      {isUnlocked === "true" && (
+      <JobCard
+        id="321"
+        logo="/logo-fyta.png"
+        title="Growth Hacker"
+        subtitle="FYTA"
+        description="Become a plant ambnassador! The FYTA Beam is an innovative plant sensor that helps you to better understand your plants and keep them healthy. And all around."
+        compensation="Commission based"
+        frequency="10h per week "
+        // isLocked={!isUnlocked}
+      />
+      {/* {isUnlocked === "true" && (
         <JobCard
           id="321"
           logo="/logo-fyta.png"
@@ -160,7 +169,7 @@ const JobsList = () => {
           frequency="10h per week "
           isLocked={!isUnlocked}
         />
-      )}
+      )} */}
     </div>
   );
 };
