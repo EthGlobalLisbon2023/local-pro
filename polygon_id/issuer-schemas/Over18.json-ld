@@ -14,8 +14,8 @@
           "type": "@type",
           "xsd": "http://www.w3.org/2001/XMLSchema#",
           "kyc-vocab": "https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Over18.md",
-          "isVerified": {
-            "@id": "kyc-vocab:isVerified",
+          "isOver18": {
+            "@id": "kyc-vocab:isOver18",
             "@type": "xsd:boolean"
           }
         }

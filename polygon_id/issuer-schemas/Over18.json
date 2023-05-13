@@ -98,7 +98,7 @@
           "type": "string",
           "format": "uri"
         },
-        "isVerified": {
+        "isOver18": {
           "type": "boolean"
         }
       }
