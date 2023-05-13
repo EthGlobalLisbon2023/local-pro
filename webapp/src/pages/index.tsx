@@ -24,6 +24,10 @@ const Home: NextPage = () => {
           logo="https://via.placeholder.com/100"
           title="Guitar Teacher"
           subtitle="City of Amsterdam"
+          description="This is a great job opportunity."
+          compensation="$100,000"
+          frequency="Full-time"
+          jobsUnlocked="AMS Certified Teacher"
         />
       </Layout>
     </>

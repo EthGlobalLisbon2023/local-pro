@@ -1,5 +1,6 @@
 import React from "react";
 import Text from "./txt";
+import { twMerge } from "tailwind-merge";
 
 type ButtonProps = {
   size?: "s" | "m" | "l";
@@ -8,6 +9,7 @@ type ButtonProps = {
   endDecorator?: React.ReactNode;
   onClick?: () => void;
   children?: React.ReactNode;
+  className?: string;
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,6 +19,7 @@ const Button: React.FC<ButtonProps> = ({
   endDecorator,
   onClick,
   children,
+  className,
 }) => {
   let paddingClass: string;
 
@@ -41,12 +44,15 @@ const Button: React.FC<ButtonProps> = ({
     case "primary":
     default:
       variantClasses =
-        "bg-blue-500 text-white border border-blue-500 hover:bg-blue-600 focus:bg-blue-700";
+        "bg-[#49989E] text-white border border-[#49989E] hover:bg-[#49989E]/80 focus:bg-blue-700";
   }
 
   return (
     <button
-      className={`inline-flex items-center rounded ${paddingClass} ${variantClasses} focus:outline-none`}
+      className={twMerge(
+        `inline-flex items-center rounded ${paddingClass} ${variantClasses} focus:outline-none`,
+        className
+      )}
       onClick={onClick}
     >
       {startDecorator && <span className="mr-2">{startDecorator}</span>}

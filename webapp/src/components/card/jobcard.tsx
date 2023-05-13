@@ -1,14 +1,27 @@
 import React from "react";
 import Card from "./card";
 import Text from "../txt";
+import Button from "../button";
 
 type JobCardProps = {
   logo: string; // URL to the logo image
   title: string;
   subtitle: string;
+  description: string;
+  compensation: string;
+  frequency: string;
+  jobsUnlocked: string;
 };
 
-const JobCard: React.FC<JobCardProps> = ({ logo, title, subtitle }) => {
+const JobCard: React.FC<JobCardProps> = ({
+  logo,
+  title,
+  subtitle,
+  description,
+  compensation,
+  frequency,
+  jobsUnlocked,
+}) => {
   return (
     <Card>
       <div className="mb-4 flex items-center">
@@ -26,7 +39,44 @@ const JobCard: React.FC<JobCardProps> = ({ logo, title, subtitle }) => {
           </Text>
         </div>
       </div>
-      {/* Add more content as needed */}
+
+      <Text size="m" className="mb-4">
+        {description}
+      </Text>
+
+      <div className="my-4 border-b border-t border-dashed border-gray-200 py-4">
+        <div className="flex justify-between px-8">
+          <div className="flex flex-col items-center justify-center">
+            <Text size="s" color="secondary" className="mb-1">
+              Compensation
+            </Text>
+            <Text size="m">{compensation}</Text>
+          </div>
+          <div className="flex flex-col items-center justify-center">
+            <Text size="s" color="secondary" className="mb-1">
+              Frequency
+            </Text>
+            <Text size="m">{frequency}</Text>
+          </div>
+        </div>
+      </div>
+      <div className="flex w-full justify-center">
+        <Button
+          variant="primary"
+          className="flex w-[90%] justify-center px-8 py-2"
+        >
+          <Text size="l" className="text-white ">
+            Apply
+          </Text>
+        </Button>
+      </div>
+
+      {jobsUnlocked && (
+        <div className="flex flex-col justify-center items-center mt-3">
+          <Text size="m" bold>Completion of task unlocks</Text>
+          <Text className="text-[#128FA3]">{jobsUnlocked}</Text>
+        </div>
+      )}
     </Card>
   );
 };

@@ -1,4 +1,5 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
 type TextProps = {
   size?: "s" | "m" | "l";
@@ -49,7 +50,9 @@ const Text: React.FC<TextProps> = ({
   }
 
   return (
-    <Component className={`${sizeClass} ${weightClass} ${colorClass}`}>
+    <Component
+      className={twMerge(sizeClass, weightClass, colorClass, className)}
+    >
       {children}
     </Component>
   );
