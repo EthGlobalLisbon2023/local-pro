@@ -16,6 +16,7 @@ import { CardButton } from "n/components/card-button";
 import { roleAbi } from "n/chain-utils/config";
 import { setupContract } from "n/chain-utils";
 import VerificationSection from "n/components/verification-section";
+import CountdownTimer from "n/components/countdown-timer";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -31,40 +32,27 @@ const Home: NextPage = () => {
               title="Guitar Teacher"
               subtitle="City of Amsterdam"
             />
-            <div className="mb-4 flex flex-col">
-              <Txt size="m" bold>
-                Details
+            {/* <div className="my-3">
+              <Txt size="l" bold>
+                8 of 8 Lessons 
               </Txt>
-              <Txt size="s">Frequency: Weekly on Tuesdays</Txt>
-              <Txt size="s">Time: 17:30 - 18:30</Txt>
-              <Txt size="s">Occurence: 8x</Txt>
-              <Txt size="s">&nbsp;</Txt>
+            </div> */}
 
-              <Txt size="m" bold>
-                Location
+            <img className="" src="/map.png"></img>
+            <div className=" flex justify-center mt-8">
+              <Txt size="m">
+                Time left to check in
               </Txt>
-              <Txt size="s">Youth Center Buurtwerk</Txt>
-              <Txt size="s">Tweede Jan van der Heijdenstraat 75-77</Txt>
-              <Txt size="s">1074 XR Amsterdam</Txt>
-              <Txt size="s">&nbsp;</Txt>
-
-              <Txt size="m" bold>
-                Compensation
-              </Txt>
-              <Txt size="s">$25 per lesson</Txt>
-              <Txt size="s">$200 in total</Txt>
-              <Txt size="s">&nbsp;</Txt>
-
-              <Txt size="m" bold>
-                Reward
-              </Txt>
-              <Txt size="s">AMS Certified Teacher</Txt>
             </div>
+            <div className="mb-8 flex justify-center">
+              <CountdownTimer seconds={60 * 8} />
+            </div>
+
             <CardButton
               onClick={() => {
-                router.push("/checkin/" + id);
+                router.push(`/checkin/${id}`);
               }}
-              text="Go To Checkin"
+              text="Check In"
             />
           </Card>
         </div>

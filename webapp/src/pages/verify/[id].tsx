@@ -30,7 +30,7 @@ const Home: NextPage = () => {
       setRequirements(allRequirements);
     }
     getReqs();
-  }, []);
+  }, [id]);
 
   return (
     <>
@@ -49,13 +49,16 @@ const Home: NextPage = () => {
             </Txt>
 
             {/* <img className="mt-4" src="/steps-min.png"></img> */}
+            <div className="my-3 flex flex-col gap-2">
+              {requirements.map((el) => (
+                <VerificationSection
+                  key={JSON.stringify(el)}
+                  stepName={el}
+                  description="Connect with Worldcoin ID"
+                />
+              ))}
+            </div>
 
-            {requirements.map((el) => (
-              <VerificationSection
-                stepName={el}
-                description="Connect with Worldcoin ID"
-              />
-            ))}
             {/* 
             <VerificationSection
               stepName="Proof of Personhood"
@@ -77,7 +80,7 @@ const Home: NextPage = () => {
 
             <CardButton
               onClick={() => {
-                // router.push()
+                router.push("/task/" + id);
               }}
               text="Verify"
             />
