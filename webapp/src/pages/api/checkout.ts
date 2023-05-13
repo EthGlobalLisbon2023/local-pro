@@ -28,7 +28,7 @@ export default async function checkout(
       // TODO: Now issue a task completed credential!
       // xxxxxxxxx
 
-      // TODO: Check if "Star Teacher" NFT has been unlocked and if so, auto-mint!
+      // TODO: Check if "Trusted Teacher" NFT has been unlocked and if so, auto-mint!
       // xxxxxxxxx
 
       response.status(200).send(allJobs);

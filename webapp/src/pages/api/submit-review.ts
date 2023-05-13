@@ -18,6 +18,7 @@ export default async function submitreview(
     }
 
     try {
+        console.log(`Received rating of ${rating} for task ${taskID} and user ${userId}`);
         // TODO: Issue a rating credential!
         // xxxxxxxxx
 
