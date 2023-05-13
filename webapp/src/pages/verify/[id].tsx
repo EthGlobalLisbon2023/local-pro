@@ -51,6 +51,18 @@ const Home: NextPage = () => {
               In order to complete your application, please finish the
               verification
             </Txt>
+            <VerificationSection
+              stepName="Proof of Personhood"
+              description="Connect with Worldcoin ID"
+            />
+            <VerificationSection
+              stepName="Criminal Record"
+              description="Upload NL Local Authority Criminal Record"
+            />
+            <VerificationSection
+              stepName="Amsterdam Screening"
+              description="Internal Background check"
+            />
           </Card>
           {/* <JobCard
             id="321"
