@@ -4,6 +4,7 @@ import Txt from "../txt";
 import Button from "../button";
 import { JobHeader } from "../jobheader";
 import { useRouter } from "next/router";
+import { CardButton } from "../card-button";
 
 type JobCardProps = {
   logo: string; // URL to the logo image
@@ -67,18 +68,12 @@ const JobCard: React.FC<JobCardProps> = ({
               </div>
             </div>
           </div>
-          <div className="flex w-full justify-center">
-            <Button
-              variant="primary"
-              className="flex w-[90%] justify-center px-8 py-2"
-              onClick={() => router.push("verify/" + id)}
-            >
-              <Txt size="l" className="text-white ">
-                Apply
-              </Txt>
-            </Button>
-          </div>
 
+          <CardButton
+            onClick={() => router.push("verify/" + id)}
+            text={"Apply"}
+          />
+         
           {jobsUnlocked && (
             <div className="mt-3 flex flex-col items-center justify-center ">
               <Txt size="m" bold>

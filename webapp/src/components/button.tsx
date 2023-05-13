@@ -56,7 +56,11 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
     >
       {startDecorator && <span className="mr-2">{startDecorator}</span>}
-      <Txt size={size} color={variant === "primary" ? "secondary" : "primary"}>
+      <Txt
+        size={size}
+        color={variant === "primary" ? "secondary" : "primary"}
+        className={variant === "primary" ? "text-white" : ""}
+      >
         {children}
       </Txt>
       {endDecorator && <span className="ml-2">{endDecorator}</span>}

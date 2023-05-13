@@ -9,7 +9,10 @@ import Card from "n/components/card/card";
 import { JobHeader } from "n/components/jobheader";
 import Txt from "n/components/txt";
 
-import { CheckIcon } from "@heroicons/react/24/solid/CheckIcon";
+import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
+import { useRouter } from "next/router";
+import Button from "n/components/button";
+import { CardButton } from "n/components/card-button";
 
 type VerificationSectionProps = {
   stepName: string;
@@ -21,8 +24,11 @@ const VerificationSection: React.FC<VerificationSectionProps> = ({
   description,
 }) => {
   return (
-    <div className="flex items-center rounded-lg bg-gradient-to-r from-green-400 to-white p-4">
-      <CheckIcon className="mr-4 h-6 w-6 text-white" />
+    <div className="flex items-center rounded-lg bg-gradient-to-l from-green-400 to-white p-4">
+      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-400">
+        <CheckIcon className="h-6 w-6 text-white" />
+      </div>
+
       <div className="flex flex-col">
         <Txt size="m" bold>
           {stepName}
@@ -35,7 +41,23 @@ const VerificationSection: React.FC<VerificationSectionProps> = ({
   );
 };
 
+{
+  /* <VerificationSection
+stepName="Proof of Personhood"
+description="Connect with Worldcoin ID"
+/>
+<VerificationSection
+stepName="Criminal Record"
+description="Upload NL Local Authority Criminal Record"
+/>
+<VerificationSection
+stepName="Amsterdam Screening"
+description="Internal Background check"
+/> */
+}
+
 const Home: NextPage = () => {
+  const router = useRouter();
   return (
     <>
       <Layout>
@@ -51,17 +73,19 @@ const Home: NextPage = () => {
               In order to complete your application, please finish the
               verification
             </Txt>
-            <VerificationSection
-              stepName="Proof of Personhood"
-              description="Connect with Worldcoin ID"
-            />
-            <VerificationSection
-              stepName="Criminal Record"
-              description="Upload NL Local Authority Criminal Record"
-            />
-            <VerificationSection
-              stepName="Amsterdam Screening"
-              description="Internal Background check"
+
+            <img className="mt-4" src="/steps-min.png"></img>
+
+            <Txt className="px-6 pb-4 pt-4" as="p" size="s">
+              Security Level 3 Verification required for job involving minors
+              with the public municipality.
+            </Txt>
+
+            <CardButton
+              onClick={() => {
+                // router.push()
+              }}
+              text="Verify"
             />
           </Card>
           {/* <JobCard

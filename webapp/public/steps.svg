@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="318.667094px" height="194.887016px" viewBox="0 0 318.667094 194.887016" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>steps</title>
+    <defs>
+        <linearGradient x1="2.3222594%" y1="100%" x2="94.5656594%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#EEEEEE" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#00B058" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="iPhone-13-Copy-8" transform="translate(-36.507325, -240.166545)">
+            <g id="steps" transform="translate(36.507325, 240.166545)">
+                <polygon id="Rectangle" fill="url(#linearGradient-1)" opacity="0.180896577" points="0.667094484 1.16549298e-13 257.072231 0 274.667094 27.645752 257.072231 55.2915039 0.667094484 55.2915039"></polygon>
+                <polygon id="Rectangle-Copy" fill="url(#linearGradient-1)" opacity="0.180896577" points="26.1670945 70.797756 282.572231 70.797756 300.167094 98.443508 282.572231 126.08926 26.1670945 126.08926"></polygon>
+                <polygon id="Rectangle-Copy-2" fill="url(#linearGradient-1)" opacity="0.180896577" points="44.6670945 139.595512 301.072231 139.595512 318.667094 167.241264 301.072231 194.887016 44.6670945 194.887016"></polygon>
+                <circle id="Oval" fill="#3CBB7C" cx="16" cy="24.645752" r="16"></circle>
+                <g id="check-mark" transform="translate(0.000000, 19.357018)">
+                    <path d="M24.1236781,0.27100213 C24.4850143,0.632788245 24.4850143,1.21888235 24.1236781,1.58066846 L15.1660546,10.538292 C14.8042685,10.8996281 14.2181744,10.8996281 13.8563883,10.538292 L9.84090186,6.52280557 C9.50068655,6.15769314 9.51072524,5.58872964 9.86360876,5.23584613 C10.2164923,4.88296262 10.7854558,4.87292392 11.1505682,5.21313924 L14.5112214,8.57379247 L22.8140118,0.27100213 C23.1757979,-0.0903340432 23.761892,-0.0903340432 24.1236781,0.27100213 Z" id="Path" stroke="#FFFFFF" stroke-width="0.5" fill="#FFFFFF"></path>
+                    <circle id="Oval" fill="#3CBB7C" cx="16" cy="75.2887339" r="16"></circle>
+                    <circle id="Oval-Copy" fill="#3CBB7C" cx="16" cy="145.288734" r="16"></circle>
+                    <path d="M24.1236781,70.2710021 C24.4850143,70.6327882 24.4850143,71.2188823 24.1236781,71.5806685 L15.1660546,80.538292 C14.8042685,80.8996281 14.2181744,80.8996281 13.8563883,80.538292 L9.84090186,76.5228056 C9.50068655,76.1576931 9.51072524,75.5887296 9.86360876,75.2358461 C10.2164923,74.8829626 10.7854558,74.8729239 11.1505682,75.2131392 L14.5112214,78.5737925 L22.8140118,70.2710021 C23.1757979,69.909666 23.761892,69.909666 24.1236781,70.2710021 Z" id="Path" stroke="#FFFFFF" stroke-width="0.5" fill="#FFFFFF"></path>
+                    <path d="M24.1236781,140.271002 C24.4850143,140.632788 24.4850143,141.218882 24.1236781,141.580668 L15.1660546,150.538292 C14.8042685,150.899628 14.2181744,150.899628 13.8563883,150.538292 L9.84090186,146.522806 C9.50068655,146.157693 9.51072524,145.58873 9.86360876,145.235846 C10.2164923,144.882963 10.7854558,144.872924 11.1505682,145.213139 L14.5112214,148.573792 L22.8140118,140.271002 C23.1757979,139.909666 23.761892,139.909666 24.1236781,140.271002 Z" id="Path-Copy" stroke="#FFFFFF" stroke-width="0.5" fill="#FFFFFF"></path>
+                </g>
+                <text id="Proof-of-Personhood" font-family="Inter-Bold, Inter" font-size="15" font-weight="bold" fill="#385252">
+                    <tspan x="47.8451131" y="23.3570181">Proof of Personhood</tspan>
+                </text>
+                <text id="Criminal-Record" font-family="Inter-Bold, Inter" font-size="15" font-weight="bold" fill="#385252">
+                    <tspan x="49" y="92.443508">Criminal Record</tspan>
+                </text>
+                <text id="Amsterdam-Screening" font-family="Inter-Bold, Inter" font-size="15" font-weight="bold" fill="#385252">
+                    <tspan x="49" y="161.769656">Amsterdam Screening</tspan>
+                </text>
+                <text id="Connect-with-Worldco" font-family="Inter-Medium, Inter" font-size="11" font-weight="400" fill="#385252">
+                    <tspan x="48" y="40.3570181">Connect with Worldcoin ID</tspan>
+                </text>
+                <text id="Upload-NL-Local-Auth" font-family="Inter-Medium, Inter" font-size="11" font-weight="400" fill="#385252">
+                    <tspan x="48" y="109.443508">Upload NL Local Authority Criminal Record</tspan>
+                </text>
+                <text id="Internal-Background" opacity="0.908272879" font-family="Inter-Medium, Inter" font-size="11" font-weight="400" fill="#385252">
+                    <tspan x="48" y="178.769656">Internal Background check</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>
