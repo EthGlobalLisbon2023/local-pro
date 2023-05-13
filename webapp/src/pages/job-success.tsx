@@ -27,18 +27,18 @@ const Home: NextPage = () => {
       <Layout>
         <div className="flex flex-col gap-4">
           <Card className="gap-2">
-            <div className="mb-8 flex justify-center">
-              <Txt size="m" className="text-3xl" bold>
+            <div className="mt-2 flex justify-center">
+              <Txt size="m" className="text-2xl" bold>
                 Congratulations!
               </Txt>
             </div>
-            <img className="mb-4" src="/rocket.gif"></img>
+            <img className="mb-4 p-16" src="/rocket.gif"></img>
 
             <CardButton
               onClick={() => {
                 router.push(`/`);
               }}
-              text="Home"
+              text="Go to marketplace"
             />
           </Card>
         </div>
