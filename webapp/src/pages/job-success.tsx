@@ -33,7 +33,12 @@ const Home: NextPage = () => {
               </Txt>
             </div>
             <img className="mb-4 p-16" src="/rocket.gif"></img>
-
+            <div className="flex justify-center gap-4 ">
+              {/* <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-400">
+                <CheckIcon className="h-6 w-6 text-white" />
+              </div> */}
+              <p>you are now a certified teacher!</p>
+            </div>
             <CardButton
               onClick={() => {
                 router.push(`/`);

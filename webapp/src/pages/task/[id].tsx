@@ -58,7 +58,7 @@ const Home: NextPage = () => {
               <Txt size="m" bold>
                 Reward
               </Txt>
-              <Txt size="s">AMS Certified Teacher</Txt>
+              <Txt size="s">AMS Top Teacher</Txt>
             </div>
             <CardButton
               onClick={() => {
