@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "test",
-    "start": "ts-node --esm index.ts"
+    "start": "ts-node --esm index.ts",
+    "playground": "ts-node --esm playground.ts"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,10 @@
   "dependencies": {
     "@0xpolygonid/js-sdk": "^1.0.0-beta.7",
     "@iden3/js-jwz": "^1.0.0-beta.2",
+    "bip32": "^4.0.0",
+    "bip39": "^3.1.0",
     "dotenv": "^16.0.3",
+    "ethereumjs-wallet": "^1.0.2",
     "ethers": "^6.3.0",
     "ts-node": "^10.9.1"
   }
