@@ -6,14 +6,14 @@
       "id": "@id",
       "type": "@type",
       "Over18": {
-        "@id": "https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Over18.json-ld#Over18",
+        "@id": "https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Over18-2.json-ld#Over18",
         "@context": {
           "@version": 1.1,
           "@protected": true,
           "id": "@id",
           "type": "@type",
           "xsd": "http://www.w3.org/2001/XMLSchema#",
-          "kyc-vocab": "https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Over18.md",
+          "kyc-vocab": "https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Over18-2.md",
           "isOver18": {
             "@id": "kyc-vocab:isOver18",
             "@type": "xsd:boolean"
