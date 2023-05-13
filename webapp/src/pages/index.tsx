@@ -58,7 +58,7 @@ const JobsList = () => {
           description="We are seeking a skilled and passionate music teacher to provide after-school guitar lessons to students between 12 and 16 years old. "
           compensation="25$ per Lesson"
           frequency="Weekly, 8 times"
-          jobsUnlocked="AMS Top Teacher"
+          jobsUnlocked="AMS Trusted Teacher"
         />
       ))}
 
@@ -70,7 +70,7 @@ const JobsList = () => {
         description="We are seeking a skilled and passionate music teacher to provide after-school guitar lessons to students between 12 and 16 years old. ."
         compensation="30$ per Lesson"
         frequency="Weekly, 4 times"
-        jobsUnlocked="AMS Top Teacher"
+        jobsUnlocked="AMS Trusted Teacher"
         isLocked
       />
     </div>

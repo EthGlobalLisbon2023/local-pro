@@ -53,6 +53,7 @@ const Home: NextPage = () => {
               {requirements.map((el) => (
                 <VerificationSection
                   key={JSON.stringify(el)}
+                  stepId={el}
                   stepName={el}
                   description="Connect with Worldcoin ID"
                 />

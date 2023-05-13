@@ -15,7 +15,7 @@ const stepIdMapping = {
   },
   CRIMINAL_CHECK: {
     name: "Criminal Record",
-    description: "Upload NL Local Authority Criminal Record",
+    description: "Upload NL Authority Criminal Record",
   },
   MUSIC_DIPLOMA: {
     name: "Amsterdam Screening",
@@ -28,10 +28,12 @@ const VerificationSection: React.FC<VerificationSectionProps> = ({
   description,
   stepId,
 }) => {
-  const { name, desc } =
+  console.log(" Object.keys(stepIdMapping", Object.keys(stepIdMapping), stepId);
+
+  const { name, description: desc } =
     Object.keys(stepIdMapping).includes(stepId) && stepId != null
       ? stepIdMapping[stepId]
-      : { name: stepName, desc: description };
+      : { name: stepName, description: description };
 
   return (
     <div className="flex items-center rounded-lg bg-gradient-to-l from-green-400 to-white p-4">
@@ -39,7 +41,7 @@ const VerificationSection: React.FC<VerificationSectionProps> = ({
         <CheckIcon className="h-6 w-6 text-white" />
       </div>
 
-      <div className="flex flex-col ml-4">
+      <div className="ml-4 flex flex-col">
         <Txt size="m" bold>
           {name}
         </Txt>
