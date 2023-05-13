@@ -62,7 +62,7 @@ async function GetAuthRequest(req:any,res) {
             // type: 'KYCAgeCredential',
             // context: 'https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json-ld/kyc-v3.json-ld',
             type: 'Over18',
-            context: 'https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Over18.json-ld',
+            context: 'https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Over18-2.json-ld',
             // TODO CHANGE
             credentialSubject: {
                 isOver18: {
@@ -118,14 +118,20 @@ async function Callback(req:any,res) {
         resolvers,
     );
 
+    console.log("tokenStr",tokenStr)
+    console.log("authRequest", authRequest)
+
+    let authResponse;
 
     try {
         const opts = {
             AcceptedStateTransitionDelay: 5 * 60 * 1000, // 5 minute
         };
-        let authResponse = await verifier.fullVerify(tokenStr, authRequest, opts);
+        authResponse = await verifier.fullVerify(tokenStr, authRequest, opts);
     } catch (error) {
+        console.log("error", error)
         return res.status(500).send(error);
     }
+    console.log("authResponse", authResponse)
     return res.status(200).set('Content-Type', 'application/json').send("user with ID: " + authResponse.from + " Succesfully authenticated");
 }
