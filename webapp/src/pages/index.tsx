@@ -11,7 +11,6 @@ import {
   jobIndexerAbi,
   jobIndexerAddress,
   roleAbi,
-  roleContractAddress,
 } from "n/chain-utils/config";
 import { useRouter } from "next/router";
 

@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { setupContract } from "n/chain-utils";
 import { roleAbi } from "n/chain-utils/config";
+import { serverSetupContract } from "server/utils";
 
 export default async function checkout(
   request: NextApiRequest,
@@ -19,8 +20,9 @@ export default async function checkout(
   }
 
   try {
-    const roleContract = await setupContract(roleAddress, roleAbi);
-
+    console.log("pre contract");
+    const roleContract = await serverSetupContract(roleAddress, roleAbi);
+    console.log("setup contract");
     // Task completion logic:
     if (checkoutLocation == 1 && taskDuration == 1) {
       const allJobs = await roleContract.completeTask(userId);
