@@ -2,100 +2,11 @@ import * as React from "react";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { SafeAuthKit, Web3AuthModalPack } from "@safe-global/auth-kit";
-import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
-import { type Web3AuthOptions } from "@web3auth/modal";
-import { CHAIN_NAMESPACES, WALLET_ADAPTERS } from "@web3auth/base";
-import Safe, {
-  EthersAdapter,
-  SafeAccountConfig,
-  SafeFactory,
-} from "@safe-global/protocol-kit";
+
 import Layout from "n/components/layout";
 
-// import { ethers } from "./dist/ethers.min.js";
-// import { ethers } from "https://cdn.ethers.io/lib/ethers-5.2.esm.min.js";
-// if (typeof window != "undefined") {
-//   import { ethers } from "https://cdn.ethers.io/lib/ethers-5.2.esm.min.js";
-// }
-
-// import dynamic from "next/dynamic";
-
-// const ethers = dynamic(
-//   () => import("https://cdn.ethers.io/lib/ethers-5.2.esm.min.js"),
-//   {
-//     ssr: false,
-//   }
-// );
-
-// import { ethers } from "ethers";
-/* eslint-disable */
-// @ts-nocheck
-
-
-
-// const safeAuthKit = await SafeAuthKit.init(web3AuthModalPack);
-
-// Allow to login and get the derived EOA
-// safeAuthKit.signIn();
-
-// // Logout
-// safeAuthKit.signOut();
-
-// // Get the provider
-// safeAuthKit.getProvider();
-
-let calledInitSafeAuth = false;
-let calledGetBal = false;
 
 const Home: NextPage = () => {
-  // const [safeAuthKit, setSafeAuthKit] = React.useState<any>(null);
-  // const [balance, setBalance] = React.useState<string>("N/A");
-
-  // let ethers: any = null;
-  // if (typeof window != "undefined") {
-  //   ethers = (window as any).ethers;
-  // }
-
-  // React.useEffect(() => {
-  //   async function initSafeAuth() {
-  //     if (safeAuthKit == null && calledInitSafeAuth === false) {
-  //       calledInitSafeAuth = true;
-  //       const safeKit = await SafeAuthKit.init(web3AuthModalPack, {
-  //         txServiceUrl: "https://safe-transaction-goerli.safe.global/",
-  //       });
-  //       setSafeAuthKit(safeKit);
-
-  //       const provider = safeKit.getProvider();
-  //       console.log("prv", provider, ethers);
-
-  //       if (provider != null && ethers != null && calledGetBal === false) {
-  //         calledGetBal = true;
-  //         const client = new ethers.providers.Web3Provider(provider);
-  //         const signer = await client.getSigner();
-  //         const addr = await signer.getAddress();
-  //         console.log("addr", addr);
-
-  //         const balance = await client.getBalance(addr);
-  //         const prettyBal = ethers.utils.formatEther(balance);
-  //         console.log("bal", prettyBal, balance);
-  //         setBalance(prettyBal);
-
-  //         // 0x4153322fAFce40e46d0f05F60539655eB1c90c30
-
-  //         const safe: Safe = await createSafe(ethers, signer, addr);
-  //         console.log("SAFE CREATED!!", safe);
-
-  //         // await fetchCreateSafe(addr);
-  //       }
-  //     }
-  //   }
-  //   initSafeAuth();
-  //   console.log(window);
-  // });
-
-  // console.log(safeAuthKit);
-
   return (
     <>
       <Head>
