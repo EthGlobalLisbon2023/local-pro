@@ -7,10 +7,13 @@ import Safe, {
 import { CHAIN_NAMESPACES, WALLET_ADAPTERS } from "@web3auth/base";
 import { Web3AuthOptions } from "@web3auth/modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
+import { formatToUSD, sleep } from "n/utils";
 
 import React, { useState } from "react";
 
 export const AuthContext = React.createContext<any>({});
+
+const ethPrice = 1808.91;
 
 const options: Web3AuthOptions = {
   clientId: process.env.NEXT_PUBLIC_REACT_APP_WEB3AUTH_CLIENT_ID as string,
@@ -87,6 +90,8 @@ const AuthProvider = ({ children }: any) => {
   const [balance, setBalance] = useState<any>("N/A");
   const [signer, setSigner] = useState<any>(null);
   const [signInResult, setSignInResult] = useState<any>(null);
+  const [userInfo, setUserInfo] = useState<any>(null);
+
   //init ethers
   let ethers: any = null;
   if (typeof window != "undefined") {
@@ -95,7 +100,7 @@ const AuthProvider = ({ children }: any) => {
 
   React.useEffect(() => {
     async function initSafeAuth() {
-      if (safeAuthKit == null && calledInitSafeAuth === false) {
+      if (safeAuthKit == null) {
         calledInitSafeAuth = true;
         const safeKit = await SafeAuthKit.init(web3AuthModalPack, {
           txServiceUrl: "https://safe-transaction-goerli.safe.global/",
@@ -105,23 +110,52 @@ const AuthProvider = ({ children }: any) => {
         const provider = safeKit.getProvider();
         console.log("prv", provider, ethers);
 
-        if (provider != null && ethers != null && calledGetBal === false) {
+        if (provider != null && ethers != null) {
           calledGetBal = true;
           const client = new ethers.providers.Web3Provider(provider);
           const signer = await client.getSigner();
           setSigner(signer);
           const addr = await signer.getAddress();
           console.log("addr", addr);
+          const usrinfo = await safeKit.getUserInfo();
+          setUserInfo(usrinfo);
 
           const balance = await client.getBalance(addr);
           const prettyBal = ethers.utils.formatEther(balance);
           console.log("bal", prettyBal, balance);
-          setBalance(prettyBal);
+          setBalance(formatToUSD(prettyBal * ethPrice));
         }
       }
     }
     initSafeAuth();
-  });
+  }, [safeAuthKit, signInResult]);
+
+  React.useEffect(() => {
+    async function initGetBalance() {
+      console.log("calling get bal", signInResult, safeAuthKit, signer);
+      if (safeAuthKit != null) {
+        try {
+          const provider = safeAuthKit.getProvider();
+          const client = new ethers.providers.Web3Provider(provider);
+          const signer = await client.getSigner();
+          const addr = await signer.getAddress();
+
+          const usrinfo = await safeAuthKit.getUserInfo();
+          setUserInfo(usrinfo);
+
+          const balance = await client.getBalance(addr);
+          const prettyBal = ethers.utils.formatEther(balance);
+          console.log("bal", prettyBal, balance);
+          setBalance(formatToUSD(prettyBal * ethPrice));
+        } catch (err: any) {
+          console.error(err);
+          setBalance("N/A");
+        }
+      }
+    }
+
+    initGetBalance();
+  }, [safeAuthKit, signInResult, signer]);
 
   React.useEffect(() => {
     async function initCreateSafe() {
@@ -161,6 +195,7 @@ const AuthProvider = ({ children }: any) => {
     <AuthContext.Provider
       value={{
         safeAuthKit,
+        userInfo,
         balance,
         signer,
         signInResult,
