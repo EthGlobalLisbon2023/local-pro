@@ -74,7 +74,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       </Head>
 
       {/* <AuthProvider> */}
-      <div className="flex min-h-screen flex-col bg-gradient-color">
+      <div className="flex min-h-screen flex-col bg-gradient-color pb-6">
         <NavBar />
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           {children}
