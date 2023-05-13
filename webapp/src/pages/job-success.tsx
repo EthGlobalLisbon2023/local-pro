@@ -28,7 +28,7 @@ const Home: NextPage = () => {
         <div className="flex flex-col gap-4">
           <Card className="gap-2">
             <div className="mt-2 flex justify-center">
-              <Txt size="m" className="text-2xl" bold>
+              <Txt size="m" className="font-zilla text-2xl" bold>
                 Congratulations!
               </Txt>
             </div>
@@ -36,11 +36,14 @@ const Home: NextPage = () => {
               <img className="my-8 h-56" src="/rocket.gif"></img>
             </div>
 
-            <div className="flex justify-center gap-4 ">
+            <div className="flex flex-col items-center justify-center ">
               {/* <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-400">
                 <CheckIcon className="h-6 w-6 text-white" />
               </div> */}
-              <p className="pb-4">you are now a certified teacher!</p>
+              <Txt size="s">You have unlocked</Txt>
+              <Txt size="l" bold className="pb-8 font-zilla text-2xl">
+                AMS trusted teacher
+              </Txt>
             </div>
             <CardButton
               onClick={() => {

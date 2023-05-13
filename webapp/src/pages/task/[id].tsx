@@ -31,7 +31,7 @@ const Home: NextPage = () => {
               title="Guitar Teacher"
               subtitle="City of Amsterdam"
             />
-            <div className="mb-4 flex flex-col">
+            <div className="mb-4 ml-4 flex flex-col">
               <Txt size="m" bold>
                 Details
               </Txt>

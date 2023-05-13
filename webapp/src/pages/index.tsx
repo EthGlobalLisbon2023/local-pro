@@ -95,6 +95,12 @@ const JobsList = () => {
 
   return (
     <div className="flex flex-col gap-4">
+      {isUnlocked === "true" && (
+        <div className="custom-class flex justify-center rounded-lg bg-purple-600 py-3 ">
+          <span className="text-white">You have unlocked 1 new job!</span>
+        </div>
+      )}
+
       {isUnlocked !== "true" &&
         jobs.map((el) => (
           <JobCard
@@ -112,14 +118,26 @@ const JobsList = () => {
       <JobCard
         id="321"
         logo="/logo-ableton.png"
-        title="User Group Master"
+        title="User Group Lead"
         subtitle="Ableton"
-        description="We are seeking a skilled and passionate music teacher to provide after-school guitar lessons to students between 12 and 16 years old. ."
-        compensation="30$ per Lesson"
-        frequency="Weekly, 4 times"
-        jobsUnlocked="AMS Trusted Teacher"
+        description="We are looking for our new User Group Lead Amsterdam. In Ableton User Groups you will find independent musicians and producers who are willing to share their knowledge and experience."
+        compensation="100$ voucher"
+        frequency="1x month"
         isLocked={!isUnlocked}
       />
+
+      {isUnlocked === "true" && (
+        <JobCard
+          id="321"
+          logo="/logo-fyta.png"
+          title="Growth Hacker"
+          subtitle="FYTA"
+          description="Become a plant ambnassador! The FYTA Beam is an innovative plant sensor that helps you to better understand your plants and keep them healthy. And all around."
+          compensation="Commission based"
+          frequency="10h per week "
+          isLocked={!isUnlocked}
+        />
+      )}
     </div>
   );
 };

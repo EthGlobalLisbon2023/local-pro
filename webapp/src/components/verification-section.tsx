@@ -36,7 +36,7 @@ const VerificationSection: React.FC<VerificationSectionProps> = ({
       : { name: stepName, description: description };
 
   return (
-    <div className="flex items-center rounded-lg bg-gradient-to-l from-green-400 to-white p-4">
+    <div className="flex items-center rounded-lg bg-gradient-to-l from-green-200 to-white p-4">
       <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-400">
         <CheckIcon className="h-6 w-6 text-white" />
       </div>
@@ -45,7 +45,7 @@ const VerificationSection: React.FC<VerificationSectionProps> = ({
         <Txt size="m" bold>
           {name}
         </Txt>
-        <Txt size="s" color="secondary">
+        <Txt size="s"  className="">
           {desc}
         </Txt>
       </div>

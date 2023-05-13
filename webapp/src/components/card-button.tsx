@@ -8,7 +8,7 @@ interface CardButtonProps {
 }
 export const CardButton = ({ onClick, text }: CardButtonProps) => {
   return (
-    <div className="flex w-full justify-center">
+    <div className="flex w-full justify-center mb-6">
       <Button
         variant="primary"
         className="flex w-[90%] justify-center px-8 py-3 bg-[#B45424] hover:bg-[#E36425] focus:bg-[#E36425] active:bg-[#E36425] border-none font-zilla font-medium"

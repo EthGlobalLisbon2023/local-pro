@@ -39,7 +39,7 @@ const JobCard: React.FC<JobCardProps> = ({
           <Txt size="s" bold className="">
             This job requires
           </Txt>
-          <Txt className="text-[#128FA3] font-zilla text-lg" bold>
+          <Txt className="font-zilla text-lg text-[#128FA3]" bold>
             AMS Trusted Teacher{" "}
           </Txt>
           <Txt size="s" bold>
@@ -52,16 +52,16 @@ const JobCard: React.FC<JobCardProps> = ({
             {description}
           </Txt>
 
-          <div className="my-4 border-b border-t border-dashed border-gray-200 py-4">
+          <div className="mb-6 mt-4 border-b border-t border-dashed border-gray-200 py-4">
             <div className="flex justify-between px-8">
               <div className="flex flex-col items-center justify-center">
-                <Txt size="s" color="secondary" className="mb-1 font-semibold">
+                <Txt size="s" color="secondary" className="mb-0 font-semibold">
                   Compensation
                 </Txt>
                 <Txt size="m">{compensation}</Txt>
               </div>
               <div className="flex flex-col items-center justify-center">
-                <Txt size="s" color="secondary" className="mb-1 font-semibold">
+                <Txt size="s" color="secondary" className="mb-0 font-semibold">
                   Frequency
                 </Txt>
                 <Txt size="m">{frequency}</Txt>
@@ -79,7 +79,9 @@ const JobCard: React.FC<JobCardProps> = ({
               <Txt size="s" bold className="">
                 Completion of task unlocks
               </Txt>
-              <Txt className="text-[#128FA3] font-zilla text-lg" bold>{jobsUnlocked}</Txt>
+              <Txt className="font-zilla text-lg text-[#128FA3]" bold>
+                {jobsUnlocked}
+              </Txt>
             </div>
           )}
         </>

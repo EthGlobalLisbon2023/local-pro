@@ -37,7 +37,7 @@ const Txt: React.FC<TextProps> = ({
   let colorClass: string = "";
   switch (color) {
     case "primary":
-      colorClass = "text-[#2E2E32]"; // replace with your primary color class
+      colorClass = "text-[#4A4A50]"; // replace with your primary color class
       break;
     case "secondary":
       colorClass = "text-[#845939]"; // replace with your secondary color class
@@ -46,7 +46,7 @@ const Txt: React.FC<TextProps> = ({
       colorClass = "text-blue-500"; // replace with your highlight color class
       break;
     default:
-      colorClass = "text-[#2E2E32]"; // default color
+      colorClass = "text-[#4A4A50]"; // default color
   }
 
   return (

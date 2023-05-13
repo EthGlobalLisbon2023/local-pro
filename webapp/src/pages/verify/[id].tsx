@@ -43,8 +43,8 @@ const Home: NextPage = () => {
               subtitle="City of Amsterdam"
             />
 
-            <Txt className="text-center">
-              In order to complete your application, please finish the
+            <Txt className="text-center" as="p">
+              In order to complete your application, <br></br>please finish the
               verification
             </Txt>
 
@@ -74,7 +74,7 @@ const Home: NextPage = () => {
               description="Internal Background check"
             /> */}
 
-            <Txt className="px-6 pb-4 pt-4" as="p" size="s">
+            <Txt className="px-6 pb-4 pt-4 text-center" as="p" size="s">
               Security Level 3 Verification required for job involving minors
               with the public municipality.
             </Txt>

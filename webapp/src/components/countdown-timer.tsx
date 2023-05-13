@@ -22,7 +22,7 @@ const Timer = ({ seconds, countUp }: any) => {
       .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   };
 
-  return <p className="text-5xl">{formatTime(time)}</p>;
+  return <p className="text-6xl font-zilla">{formatTime(time)}</p>;
 };
 
 export default Timer;
