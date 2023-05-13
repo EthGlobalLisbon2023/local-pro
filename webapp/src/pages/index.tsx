@@ -121,7 +121,6 @@ const JobsList = () => {
           <span className="mx-auto text-white">
             You have unlocked 1 new job!
           </span>
-          <XIcon className="absolute right-2 top-2 h-5 w-5 cursor-pointer text-white" />
         </div>
       )}
       {isUnlocked !== "true" &&
