@@ -1,7 +1,8 @@
 import React from "react";
 import Card from "./card";
-import Text from "../txt";
+import Txt from "../txt";
 import Button from "../button";
+import { JobHeader } from "../jobheader";
 
 type JobCardProps = {
   logo: string; // URL to the logo image
@@ -25,51 +26,39 @@ const JobCard: React.FC<JobCardProps> = ({
   isLocked = false,
 }) => (
   <Card>
-    <div className="mb-4 flex items-center">
-      <img
-        src={logo}
-        alt="Company Logo"
-        className="mr-4 h-16 w-16 rounded-lg object-cover"
-      />
-      <div className="flex flex-col gap-1">
-        <Text size="l" bold>
-          {title}
-        </Text>
-        <Text size="m" color="secondary">
-          {subtitle}
-        </Text>
-      </div>
-    </div>
+    <JobHeader logo={logo} title={title} subtitle={subtitle} />
 
     {isLocked ? (
       <div className="mt-3 flex flex-col items-center justify-center rounded-lg bg-[#CBD0DD] p-2">
-        <Text size="m" bold>
+        <Txt size="m" bold>
           This job requires
-        </Text>
-        <Text className="text-[#128FA3]" bold>AMS Certified Teacher </Text>
-        <Text size="m" bold>
+        </Txt>
+        <Txt className="text-[#128FA3]" bold>
+          AMS Certified Teacher{" "}
+        </Txt>
+        <Txt size="m" bold>
           status
-        </Text>
+        </Txt>
       </div>
     ) : (
       <>
-        <Text size="m" className="mb-4">
+        <Txt size="m" className="mb-4">
           {description}
-        </Text>
+        </Txt>
 
         <div className="my-4 border-b border-t border-dashed border-gray-200 py-4">
           <div className="flex justify-between px-8">
             <div className="flex flex-col items-center justify-center">
-              <Text size="s" color="secondary" className="mb-1">
+              <Txt size="s" color="secondary" className="mb-1">
                 Compensation
-              </Text>
-              <Text size="m">{compensation}</Text>
+              </Txt>
+              <Txt size="m">{compensation}</Txt>
             </div>
             <div className="flex flex-col items-center justify-center">
-              <Text size="s" color="secondary" className="mb-1">
+              <Txt size="s" color="secondary" className="mb-1">
                 Frequency
-              </Text>
-              <Text size="m">{frequency}</Text>
+              </Txt>
+              <Txt size="m">{frequency}</Txt>
             </div>
           </div>
         </div>
@@ -78,18 +67,18 @@ const JobCard: React.FC<JobCardProps> = ({
             variant="primary"
             className="flex w-[90%] justify-center px-8 py-2"
           >
-            <Text size="l" className="text-white ">
+            <Txt size="l" className="text-white ">
               Apply
-            </Text>
+            </Txt>
           </Button>
         </div>
 
         {jobsUnlocked && (
           <div className="mt-3 flex flex-col items-center justify-center ">
-            <Text size="m" bold>
+            <Txt size="m" bold>
               Completion of task unlocks
-            </Text>
-            <Text className="text-[#128FA3]">{jobsUnlocked}</Text>
+            </Txt>
+            <Txt className="text-[#128FA3]">{jobsUnlocked}</Txt>
           </div>
         )}
       </>

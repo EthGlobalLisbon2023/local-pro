@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import AuthProvider, { AuthContext } from "./authprovider";
 import Button from "./button";
-import Text from "./txt";
+import Txt from "./txt";
 
 // Define your NavBar component
 const NavBar: React.FC = () => {
@@ -18,7 +18,7 @@ const NavBar: React.FC = () => {
             alt="Your Company"
           />
         </div>
-        <Text bold>{userInfo?.name}</Text>
+        <Txt bold>{userInfo?.name}</Txt>
       </div>
 
       {balance === "N/A" || balance == null ? (
@@ -31,7 +31,7 @@ const NavBar: React.FC = () => {
         </Button>
       ) : (
         <div className="rounded-3xl bg-black/10 p-2">
-          <Text bold>{balance}</Text>
+          <Txt bold>{balance}</Txt>
         </div>
       )}
 

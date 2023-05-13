@@ -10,7 +10,7 @@ type TextProps = {
   className?: string;
 };
 
-const Text: React.FC<TextProps> = ({
+const Txt: React.FC<TextProps> = ({
   size = "m",
   bold = false,
   color,
@@ -58,4 +58,4 @@ const Text: React.FC<TextProps> = ({
   );
 };
 
-export default Text;
+export default Txt;

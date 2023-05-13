@@ -1,5 +1,5 @@
 import React from "react";
-import Text from "./txt";
+import Txt from "./txt";
 import { twMerge } from "tailwind-merge";
 
 type ButtonProps = {
@@ -56,9 +56,9 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
     >
       {startDecorator && <span className="mr-2">{startDecorator}</span>}
-      <Text size={size} color={variant === "primary" ? "secondary" : "primary"}>
+      <Txt size={size} color={variant === "primary" ? "secondary" : "primary"}>
         {children}
-      </Text>
+      </Txt>
       {endDecorator && <span className="ml-2">{endDecorator}</span>}
     </button>
   );
