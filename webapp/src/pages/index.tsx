@@ -11,21 +11,7 @@ import Safe, {
   SafeAccountConfig,
   SafeFactory,
 } from "@safe-global/protocol-kit";
-
-const fetchCreateSafe = async (owner_addr: string) => {
-  try {
-    console.log("feetching");
-    const response = await fetch(`/api/create-safe?owner_addr=${owner_addr}`);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.error("Error:", error);
-  }
-};
+import Layout from "n/components/layout";
 
 // import { ethers } from "./dist/ethers.min.js";
 // import { ethers } from "https://cdn.ethers.io/lib/ethers-5.2.esm.min.js";
@@ -46,49 +32,7 @@ const fetchCreateSafe = async (owner_addr: string) => {
 /* eslint-disable */
 // @ts-nocheck
 
-const options: Web3AuthOptions = {
-  clientId: process.env.NEXT_PUBLIC_REACT_APP_WEB3AUTH_CLIENT_ID as string,
-  web3AuthNetwork: "testnet",
-  chainConfig: {
-    chainNamespace: CHAIN_NAMESPACES.EIP155,
-    chainId: "0x5", //"0x13881", //"0x5", //chainId,
-    rpcTarget: `https://rpc.ankr.com/eth_goerli`, // "https://polygon-mumbai.g.alchemy.com/v2/B2gs6BuJ9M2EnmspBUvOgqETQjkIUSTk", ///`https://rpc.ankr.com/eth_goerli`, //https://www.alchemy.com/overviews/mumbai-testnet
-  },
-  uiConfig: {
-    theme: "dark",
-    loginMethodsOrder: ["google", "facebook", "discord"],
-  },
-};
 
-const modalConfig = {
-  [WALLET_ADAPTERS.TORUS_EVM]: {
-    label: "torus",
-    showOnModal: false,
-  },
-  [WALLET_ADAPTERS.METAMASK]: {
-    label: "metamask",
-    showOnDesktop: true,
-    showOnMobile: false,
-  },
-};
-
-const openloginAdapter = new OpenloginAdapter({
-  loginSettings: {
-    mfaLevel: "mandatory",
-  },
-  adapterSettings: {
-    uxMode: "popup",
-    whiteLabel: {
-      name: "Safe",
-    },
-  },
-});
-
-const web3AuthModalPack = new Web3AuthModalPack(
-  options,
-  [openloginAdapter],
-  modalConfig
-);
 
 // const safeAuthKit = await SafeAuthKit.init(web3AuthModalPack);
 
@@ -101,79 +45,56 @@ const web3AuthModalPack = new Web3AuthModalPack(
 // // Get the provider
 // safeAuthKit.getProvider();
 
-const createSafe = async (ethers: any, signer: any, addr: string) => {
-  const ethAdapter = new EthersAdapter({
-    ethers,
-    signerOrProvider: signer,
-  });
-
-  console.log("creating fact");
-
-  const safeFactory = await SafeFactory.create({ ethAdapter });
-
-  const safeAccountConfig: SafeAccountConfig = {
-    owners: [addr],
-    threshold: 1,
-  };
-  console.log("deploying safe");
-
-  const safe: Safe = await safeFactory.deploySafe({
-    safeAccountConfig,
-  });
-
-  return safe;
-};
-
 let calledInitSafeAuth = false;
 let calledGetBal = false;
 
 const Home: NextPage = () => {
-  const [safeAuthKit, setSafeAuthKit] = React.useState<any>(null);
-  const [balance, setBalance] = React.useState<string>("N/A");
+  // const [safeAuthKit, setSafeAuthKit] = React.useState<any>(null);
+  // const [balance, setBalance] = React.useState<string>("N/A");
 
-  let ethers: any = null;
-  if (typeof window != "undefined") {
-    ethers = (window as any).ethers;
-  }
+  // let ethers: any = null;
+  // if (typeof window != "undefined") {
+  //   ethers = (window as any).ethers;
+  // }
 
-  React.useEffect(() => {
-    async function initSafeAuth() {
-      if (safeAuthKit == null && calledInitSafeAuth === false) {
-        calledInitSafeAuth = true;
-        const safeKit = await SafeAuthKit.init(web3AuthModalPack, {
-          txServiceUrl: "https://safe-transaction-goerli.safe.global/",
-        });
-        setSafeAuthKit(safeKit);
+  // React.useEffect(() => {
+  //   async function initSafeAuth() {
+  //     if (safeAuthKit == null && calledInitSafeAuth === false) {
+  //       calledInitSafeAuth = true;
+  //       const safeKit = await SafeAuthKit.init(web3AuthModalPack, {
+  //         txServiceUrl: "https://safe-transaction-goerli.safe.global/",
+  //       });
+  //       setSafeAuthKit(safeKit);
 
-        const provider = safeKit.getProvider();
-        console.log("prv", provider, ethers);
+  //       const provider = safeKit.getProvider();
+  //       console.log("prv", provider, ethers);
 
-        if (provider != null && ethers != null && calledGetBal === false) {
-          calledGetBal = true;
-          const client = new ethers.providers.Web3Provider(provider);
-          const signer = await client.getSigner();
-          const addr = await signer.getAddress();
-          console.log("addr", addr);
+  //       if (provider != null && ethers != null && calledGetBal === false) {
+  //         calledGetBal = true;
+  //         const client = new ethers.providers.Web3Provider(provider);
+  //         const signer = await client.getSigner();
+  //         const addr = await signer.getAddress();
+  //         console.log("addr", addr);
 
-          const balance = await client.getBalance(addr);
-          const prettyBal = ethers.utils.formatEther(balance);
-          console.log("bal", prettyBal, balance);
-          setBalance(prettyBal);
+  //         const balance = await client.getBalance(addr);
+  //         const prettyBal = ethers.utils.formatEther(balance);
+  //         console.log("bal", prettyBal, balance);
+  //         setBalance(prettyBal);
 
-          // 0x4153322fAFce40e46d0f05F60539655eB1c90c30
+  //         // 0x4153322fAFce40e46d0f05F60539655eB1c90c30
 
-          const safe: Safe = await createSafe(ethers, signer, addr);
-          console.log("SAFE CREATED!!", safe);
+  //         const safe: Safe = await createSafe(ethers, signer, addr);
+  //         console.log("SAFE CREATED!!", safe);
 
-          // await fetchCreateSafe(addr);
-        }
-      }
-    }
-    initSafeAuth();
-    console.log(window);
-  });
+  //         // await fetchCreateSafe(addr);
+  //       }
+  //     }
+  //   }
+  //   initSafeAuth();
+  //   console.log(window);
+  // });
 
-  console.log(safeAuthKit);
+  // console.log(safeAuthKit);
 
   return (
     <>
@@ -186,30 +107,14 @@ const Home: NextPage = () => {
           type="application/javascript"
         ></script>
       </Head>
+
+      <Layout>Hello</Layout>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
             Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
           </h1>
-          <div>
-            <p>Your balance: {balance}</p>
-          </div>
-          <button
-            onClick={async () => {
-              const signinRet = await safeAuthKit.signIn();
-              console.log("SIGNIN", signinRet);
-            }}
-          >
-            Sign In
-          </button>
 
-          <button
-            onClick={() => {
-              safeAuthKit.signOut();
-            }}
-          >
-            Sign Out
-          </button>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
             <Link
               className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
