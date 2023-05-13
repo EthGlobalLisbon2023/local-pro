@@ -7,6 +7,7 @@
   "scripts": {
     "test": "test",
     "start": "ts-node --esm index.ts",
+    "examples-start": "ts-node --esm js-sdk-examples-index.ts",
     "playground": "ts-node --esm playground.ts"
   },
   "repository": {
@@ -27,6 +28,7 @@
     "dotenv": "^16.0.3",
     "ethereumjs-wallet": "^1.0.2",
     "ethers": "^6.3.0",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
   }
 }
