@@ -3,19 +3,13 @@
   "type": "object",
   "$metadata": {
     "uris": {
-      "jsonLdContext": "https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json-ld/kyc-v3.json-ld",
-      "jsonSchema": "https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json/KYCAgeCredential-v3.json"
+      "jsonLdContext": "https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/localPro-4.json-ld",
+      "jsonSchema": "https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/localPro-4.json"
     }
   },
   "required": [
     "@context",
-    "id",
-    "type",
-    "issuanceDate",
-    "credentialSubject",
-    "credentialSchema",
-    "credentialStatus",
-    "issuer"
+    "id"
   ],
   "properties": {
     "@context": {
@@ -27,15 +21,6 @@
     },
     "id": {
       "type": "string"
-    },
-    "type": {
-      "type": [
-        "string",
-        "array"
-      ],
-      "items": {
-        "type": "string"
-      }
     },
     "issuer": {
       "type": [
@@ -105,9 +90,7 @@
     "credentialSubject": {
       "type": "object",
       "required": [
-        "id",
-        "birthday",
-        "documentType"
+        "id"
       ],
       "properties": {
         "id": {
@@ -115,11 +98,8 @@
           "type": "string",
           "format": "uri"
         },
-        "birthday": {
-          "type": "integer"
-        },
-        "documentType": {
-          "type": "integer"
+        "isVerified": {
+          "type": "boolean"
         }
       }
     }
