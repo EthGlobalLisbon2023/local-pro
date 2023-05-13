@@ -4,6 +4,7 @@ import Head from "next/head";
 import Link from "next/link";
 
 import Layout from "n/components/layout";
+import JobCard from "n/components/card/jobcard";
 
 const Home: NextPage = () => {
   return (
@@ -18,7 +19,13 @@ const Home: NextPage = () => {
         ></script>
       </Head>
 
-      <Layout>Hello</Layout>
+      <Layout>
+        <JobCard
+          logo="https://via.placeholder.com/100"
+          title="Guitar Teacher"
+          subtitle="City of Amsterdam"
+        />
+      </Layout>
     </>
   );
 };
