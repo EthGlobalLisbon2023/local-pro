@@ -32,7 +32,7 @@ const JobsList = () => {
   const { balance, signIn, signOut, signInResult, userInfo, safeAuthKit } =
     React.useContext(AuthContext);
 
-  const [jobs, setJobs] = React.useState([]);
+  const [jobs, setJobs] = React.useState<any[]>([]);
 
   React.useEffect(() => {
     async function getJobs() {
@@ -42,11 +42,53 @@ const JobsList = () => {
       );
 
       const allJobs = await indexerContract.getAllAddresses();
+
       console.log("alljobs", allJobs);
       setJobs(allJobs);
-      const rolesContract = await setupContract(allJobs[0], roleAbi);
-      const allRequirements = await rolesContract.getAllRequirements();
-      console.log("allRequirements", allRequirements);
+      let jobsData = [];
+      for (let i = 0; i < allJobs.length; i++) {
+        const jobAddr = allJobs[i];
+
+        const rolesContract = await setupContract(allJobs[0], roleAbi);
+        const data = await Promise.all([
+          rolesContract.logo(),
+          rolesContract.description(),
+          rolesContract.title(),
+          rolesContract.subtitle(),
+          rolesContract.compensation(),
+          rolesContract.frequency(),
+          rolesContract.jobsUnlocked(),
+          rolesContract.getAllRequirements(),
+        ]).then(
+          ([
+            logo,
+            description,
+            title,
+            subtitle,
+            compensation,
+            frequency,
+            jobsUnlocked,
+            requirements,
+          ]) => ({
+            id: jobAddr,
+            logo,
+            description,
+            title,
+            subtitle,
+            compensation,
+            frequency,
+            jobsUnlocked,
+            requirements,
+          })
+        );
+
+        console.log("data", data);
+        jobsData.push(data);
+      }
+      console.log("jobsData", jobsData);
+      setJobs(jobsData);
+      // const allRequirements = await rolesContract.getAllRequirements();
+      // console.log("allRequirements", allRequirements);
     }
     getJobs();
   }, [signInResult, safeAuthKit]);
@@ -56,14 +98,14 @@ const JobsList = () => {
       {isUnlocked !== "true" &&
         jobs.map((el) => (
           <JobCard
-            id={el}
-            logo="/logo-ams.png"
-            title="Guitar Teacher"
-            subtitle="City of Amsterdam"
-            description="We are seeking a skilled and passionate music teacher to provide after-school guitar lessons to students between 12 and 16 years old. "
-            compensation="25$ per Lesson"
-            frequency="Weekly, 8 times"
-            jobsUnlocked="AMS Trusted Teacher"
+            id={el.id}
+            logo={el.logo}
+            title={el.title}
+            subtitle={el.subtitle}
+            description={el.description}
+            compensation={el.compensation}
+            frequency={el.frequency}
+            jobsUnlocked={el.jobsUnlocked}
           />
         ))}
 
