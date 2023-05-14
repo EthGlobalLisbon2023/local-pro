@@ -4,13 +4,11 @@ Hosted at: https://local-pro.vercel.app/
 Platform to bridfe off-chain freelancing work and on-chain coordination. Workers can apply for tasks published by organisations, received credentials based on their performance and re-use these credentials to apply to future jobs.
 
 ## Tools Used
-- SAFE: We are using both the Protocol kit and Auth kits in a novel real-world use case to automate payments and issue PolygonID VCs in order to abstract all complexity from end users
-https://github.com/EthGlobalLisbon2023/local-pro/blob/c61ccf352c515e23c1605126d631eaf91a7873ad/webapp/src/components/authprovider.tsx#L81
+- SAFE: We are using both the Protocol kit and Auth kits in a novel real-world use case to automate payments and issue PolygonID VCs in order to abstract all complexity from end users.
 
 - zkBOB: We created a ZK address for an end user and then generated Direct Deposit code to automatically send funds from an organisation Safe Account Abstraction wallet to the user in a novel real-world use case where privacy is critical.
 
 - PolygonID: We are using all aspects of Polygon ID's Verifiable Credentials in a novel real-world use case in combination with account abstraction. We have created both custom issuer and verifier nodes and credential schemas.
-https://github.com/EthGlobalLisbon2023/local-pro/tree/main/polygon_id
 
 
 ## Front-End: Launch Nextjs App
