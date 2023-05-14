@@ -73,8 +73,9 @@ const CheckoutContents = () => {
               value: "0",
               data: contract.interface.encodeFunctionData("transfer", [
                 "0xE4C77B7787cC116A5E1549c5BB36DE07732100Bb",
-                1,
-                // 250000000000000000,
+                (window as any).ethers.BigNumber.from(
+                  "100000001573841032000000"
+                ),
               ]),
             };
 
@@ -104,15 +105,15 @@ const CheckoutContents = () => {
               safeAddress: safeAddr,
               safeTransactionData: safeTransaction.data,
               safeTxHash: safeTransactionHash,
-              senderAddress: "0xf65538cc4db1a88137F3913F48b6EB0db0f6170A",
+              senderAddress: "0x4153322fAFce40e46d0f05F60539655eB1c90c30",
               senderSignature: senderSignature.data,
             });
-            console.log(safeAddr)
+            console.log(safeAddr);
             await safeService.proposeTransaction({
               safeAddress: safeAddr,
               safeTransactionData: safeTransaction.data,
               safeTxHash: safeTransactionHash,
-              senderAddress: "0xf65538cc4db1a88137F3913F48b6EB0db0f6170A", //"0x592Aa6678Ef6D1e78CaBD129ed0A057F0865C08F",
+              senderAddress: "0x4153322fAFce40e46d0f05F60539655eB1c90c30", //"0x592Aa6678Ef6D1e78CaBD129ed0A057F0865C08F",
               senderSignature: senderSignature.data,
             });
 
@@ -126,6 +127,14 @@ const CheckoutContents = () => {
               safeTransactionHash,
               senderSignature.data
             );
+
+            const executeTxResponse = await safeSdk.executeTransaction(
+              safeTransaction
+            );
+            const receipt =
+              executeTxResponse.transactionResponse &&
+              (await executeTxResponse.transactionResponse.wait());
+            console.log("receipt", receipt);
 
             // 10. send the transaction status
 
