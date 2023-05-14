@@ -1,14 +1,15 @@
 # Local Pro
 Hosted at: https://local-pro.vercel.app/
 
-Platform to bridfe off-chain freelancing work and on-chain coordination. Workers can apply for tasks published by organisations, received credentials based on their performance and re-use these credentials to apply to future jobs.
+Our platform serves as a bridge between off-chain freelancing work and on-chain coordination, revolutionizing the way workers and organizations collaborate. Workers can easily apply for tasks published by organizations and receive credentials based on their performance. These credentials can then be reused to apply for future jobs, streamlining the job application process.
 
 ## Tools Used
-- SAFE: We are using both the Protocol kit and Auth kits in a novel real-world use case to automate payments and issue PolygonID VCs in order to abstract all complexity from end users.
+- SAFE: To enhance user experience and simplify the payment and verification processes, we leverage advanced tools and technologies. The Protocol kit and Auth kits are utilized to automate payments and issue PolygonID Verifiable Credentials (VCs), ensuring a seamless and secure transaction environment for all parties involved.
 
-- zkBOB: We created a ZK address for an end user and then generated Direct Deposit code to automatically send funds from an organisation Safe Account Abstraction wallet to the user in a novel real-world use case where privacy is critical.
+- zkBOB: To prioritize privacy, we implement zkBOB, which generates a ZK address for each end user. This allows us to create a direct deposit system, where funds are automatically sent from an organization's Safe Account Abstraction wallet to the user, without compromising their privacy. This innovative approach ensures that sensitive financial information remains confidential throughout the entire process.
 
-- PolygonID: We are using all aspects of Polygon ID's Verifiable Credentials in a novel real-world use case in combination with account abstraction. We have created both custom issuer and verifier nodes and credential schemas.
+- PolygonID: Additionally, we harness the power of PolygonID's Verifiable Credentials, employing all aspects of its functionality in conjunction with account abstraction. By creating custom issuer and verifier nodes, as well as developing credential schemas, we establish a robust and reliable system for verifying and validating credentials. This integration of PolygonID enhances the credibility and trustworthiness of the platform, fostering a secure environment for workers and organizations to collaborate effectively.
+
 
 
 ## Front-End: Launch Nextjs App
