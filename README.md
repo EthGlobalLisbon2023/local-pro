@@ -4,6 +4,11 @@ Hosted at: https://local-pro.vercel.app/
 In a production environment secrets would not be comited to the repository. 
 But for the simplicity of the demo it will be done here. All "secrets" of this demo can be actually shared publically.
 
+## Tools Used
+- SAFE Account Abstraction:
+- zkBOB: private payments from SAFE module to user's zk receiving wallets;
+- Polygon ID:
+
 
 ## Front-End: Launch Nextjs App
 The front-end is all found under the ```webapp``` folder.
