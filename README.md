@@ -1,8 +1,7 @@
 # Local Pro
 Hosted at: https://local-pro.vercel.app/
 
-In a production environment secrets would not be comited to the repository. 
-But for the simplicity of the demo it will be done here. All "secrets" of this demo can be actually shared publically.
+Platform to bridfe off-chain freelancing work and on-chain coordination. Workers can apply for tasks published by organisations, received credentials based on their performance and re-use these credentials to apply to future jobs.
 
 ## Tools Used
 - SAFE Account Abstraction: we generate an EOA and a SAFE for each user and organisation, abstracting away having to manually sign transactions and embedding the logic of the tasks involved in job in the smart account. 
