@@ -50,12 +50,13 @@ const Home: NextPage = () => {
 
             {/* <img className="mt-4" src="/steps-min.png"></img> */}
             <div className="my-3 flex flex-col gap-2">
-              {requirements.map((el) => (
+              {requirements.map((el, index) => (
                 <VerificationSection
                   key={JSON.stringify(el)}
                   stepId={el}
                   stepName={el}
                   description="Connect with Worldcoin ID"
+                  isDisabled={index === 2}
                 />
               ))}
             </div>
