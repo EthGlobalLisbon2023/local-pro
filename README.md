@@ -33,3 +33,8 @@ After that run the verifier
 ```
 npm run verifier
 ```
+
+
+# Issuer
+The issuer is run through docker. Please follow the polygon documentation for it to work: `git@github.com:0xPolygonID/issuer-node.git`
+The schema definitions for the credentials could be found in the polygon_id/issuer-schemas folder.
