@@ -1,0 +1,351 @@
+{
+	"compiler": {
+		"version": "0.8.0+commit.c7dfd78e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "fallbackReceiver",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes",
+						"name": "zkAddress",
+						"type": "bytes"
+					}
+				],
+				"name": "directDeposit",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "depositId",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "fallbackReceiver",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "zkAddress",
+						"type": "string"
+					}
+				],
+				"name": "directDeposit",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "depositId",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "directDepositFee",
+				"outputs": [
+					{
+						"internalType": "uint64",
+						"name": "fee",
+						"type": "uint64"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "directDepositNonce",
+				"outputs": [
+					{
+						"internalType": "uint32",
+						"name": "nonce",
+						"type": "uint32"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "directDepositTimeout",
+				"outputs": [
+					{
+						"internalType": "uint40",
+						"name": "timeout",
+						"type": "uint40"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "depositId",
+						"type": "uint256"
+					}
+				],
+				"name": "getDirectDeposit",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "fallbackReceiver",
+								"type": "address"
+							},
+							{
+								"internalType": "uint96",
+								"name": "sent",
+								"type": "uint96"
+							},
+							{
+								"internalType": "uint64",
+								"name": "deposit",
+								"type": "uint64"
+							},
+							{
+								"internalType": "uint64",
+								"name": "fee",
+								"type": "uint64"
+							},
+							{
+								"internalType": "uint40",
+								"name": "timestamp",
+								"type": "uint40"
+							},
+							{
+								"internalType": "enum IZkBobDirectDeposits.DirectDepositStatus",
+								"name": "status",
+								"type": "uint8"
+							},
+							{
+								"internalType": "bytes10",
+								"name": "diversifier",
+								"type": "bytes10"
+							},
+							{
+								"internalType": "bytes32",
+								"name": "pk",
+								"type": "bytes32"
+							}
+						],
+						"internalType": "struct IZkBobDirectDeposits.DirectDeposit",
+						"name": "deposit",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "from",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes",
+						"name": "data",
+						"type": "bytes"
+					}
+				],
+				"name": "onTokenTransfer",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "ok",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "indices",
+						"type": "uint256[]"
+					}
+				],
+				"name": "refundDirectDeposit",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "index",
+						"type": "uint256"
+					}
+				],
+				"name": "refundDirectDeposit",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"directDeposit(address,uint256,bytes)": {
+					"params": {
+						"amount": "direct deposit amount.",
+						"fallbackReceiver": "receiver of deposit refund.",
+						"zkAddress": "receiver zk address."
+					},
+					"returns": {
+						"depositId": "id of the submitted deposit to query status for."
+					}
+				},
+				"directDeposit(address,uint256,string)": {
+					"params": {
+						"amount": "direct deposit amount.",
+						"fallbackReceiver": "receiver of deposit refund.",
+						"zkAddress": "receiver zk address."
+					},
+					"returns": {
+						"depositId": "id of the submitted deposit to query status for."
+					}
+				},
+				"directDepositFee()": {
+					"returns": {
+						"fee": "direct deposit submission fee."
+					}
+				},
+				"directDepositNonce()": {
+					"returns": {
+						"nonce": "direct deposit nonce."
+					}
+				},
+				"directDepositTimeout()": {
+					"returns": {
+						"timeout": "duration in seconds."
+					}
+				},
+				"getDirectDeposit(uint256)": {
+					"params": {
+						"depositId": "id of the submitted deposit."
+					},
+					"returns": {
+						"deposit": "recorded deposit struct"
+					}
+				},
+				"onTokenTransfer(address,uint256,bytes)": {
+					"params": {
+						"amount": "direct deposit amount.",
+						"data": "encoded address pair - abi.encode(address(fallbackReceiver), bytes(zkAddress))",
+						"from": "original tokens sender."
+					},
+					"returns": {
+						"ok": "true, if deposit of submitted successfully."
+					}
+				},
+				"refundDirectDeposit(uint256)": {
+					"params": {
+						"index": "deposit id to issue a refund for."
+					}
+				},
+				"refundDirectDeposit(uint256[])": {
+					"params": {
+						"indices": "deposit ids to issue a refund for."
+					}
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"directDeposit(address,uint256,bytes)": {
+					"notice": "Performs a direct deposit to the specified zk address. In case the deposit cannot be processed, it can be refunded later to the fallbackReceiver address."
+				},
+				"directDeposit(address,uint256,string)": {
+					"notice": "Performs a direct deposit to the specified zk address. In case the deposit cannot be processed, it can be refunded later to the fallbackReceiver address."
+				},
+				"directDepositFee()": {
+					"notice": "Tells the direct deposit fee, in zkBOB units (9 decimals)."
+				},
+				"directDepositNonce()": {
+					"notice": "Tells the nonce of next direct deposit."
+				},
+				"directDepositTimeout()": {
+					"notice": "Tells the timeout after which unprocessed direct deposits can be refunded."
+				},
+				"getDirectDeposit(uint256)": {
+					"notice": "Retrieves the direct deposits from the queue by its id."
+				},
+				"onTokenTransfer(address,uint256,bytes)": {
+					"notice": "ERC677 callback for performing a direct deposit. Do not call this function directly, it's only intended to be called by the token contract."
+				},
+				"refundDirectDeposit(uint256)": {
+					"notice": "Refunds specified direct deposit. Can be called by anyone, but only after the configured timeout has passed. Function will revert for deposit that is not pending."
+				},
+				"refundDirectDeposit(uint256[])": {
+					"notice": "Refunds multiple direct deposits. Can be called by anyone, but only after the configured timeout has passed. Function will do nothing for non-pending deposits and will not revert."
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/IZkBobDirectDeposits.sol": "IZkBobDirectDeposits"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/IZkBobDirectDeposits.sol": {
+			"keccak256": "0x8a66f7d60e526e7e0e4e9b8eea3cc64357fa7487504a22feac9d02db048456d3",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://4e611f9b31b691ed42d2debcca1afcb6226cf13ed149c18c7c599146f1266cea",
+				"dweb:/ipfs/QmUpCB8AhqFKjPRAwgjrqku5E8ozM961d9h29Q9Dz7VXLf"
+			]
+		}
+	},
+	"version": 1
+}
