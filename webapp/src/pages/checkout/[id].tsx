@@ -40,26 +40,26 @@ const CheckoutContents = () => {
         </div>
         <CardButton
           onClick={async () => {
-            const addr = await signer.getAddress();
+            // const addr = await signer.getAddress();
             
-            const response = await fetch("/api/checkout", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                checkoutLocation: 1,
-                taskDuration: 1,
-                roleAddress: roleContractAddress,
-                roleAbi: roleAbi,
-                userId: addr,
-              }),
-            });
+            // const response = await fetch("/api/checkout", {
+            //   method: "POST",
+            //   headers: {
+            //     "Content-Type": "application/json",
+            //   },
+            //   body: JSON.stringify({
+            //     checkoutLocation: 1,
+            //     taskDuration: 1,
+            //     roleAddress: roleContractAddress,
+            //     roleAbi: roleAbi,
+            //     userId: addr,
+            //   }),
+            // });
 
-            const data = await response.json();
-            console.log("d", data);
+            // const data = await response.json();
+            // console.log("d", data);
 
-            // router.push(`/job-success`);
+            router.push(`/job-success`);
           }}
           text="End Task"
         />
