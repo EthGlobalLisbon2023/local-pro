@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import QRCode from 'qrcode.react';
 
-const VERIFIER_BASE_URL = "localhost:8080";
+const VERIFIER_BASE_URL = "http://localhost:8080";
 
 export default function Verify() {
     const [data, setData] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch('http://localhost:8080/api/sign-in', {
+            const response = await fetch(VERIFIER_BASE_URL + '/api/sign-in', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
