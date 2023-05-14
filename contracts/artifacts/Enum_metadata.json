@@ -1,0 +1,47 @@
+{
+	"compiler": {
+		"version": "0.8.0+commit.c7dfd78e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"author": "Richard Meissner - <richard@gnosis.pm>",
+			"kind": "dev",
+			"methods": {},
+			"title": "Enum - Collection of enums",
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Enum.sol": "Enum"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Enum.sol": {
+			"keccak256": "0x6239e58ea803ad00fa3acc157b2aed421f9ac236f122b4c75f91b481a2983413",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://0363db250524a7ec06bd10352b6e5707092413833378fd102c5e5514d3b128d7",
+				"dweb:/ipfs/QmNrdGUCYkqm5zTJh7WDuXi591qTzGUnCuiyxfvbkcgDZq"
+			]
+		}
+	},
+	"version": 1
+}

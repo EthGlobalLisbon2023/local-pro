@@ -1,0 +1,276 @@
+{
+	"deploy": {
+		"VM:-": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"main:1": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"ropsten:3": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"rinkeby:4": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"kovan:42": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"goerli:5": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"Custom": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		}
+	},
+	"data": {
+		"bytecode": {
+			"generatedSources": [],
+			"linkReferences": {},
+			"object": "",
+			"opcodes": "",
+			"sourceMap": ""
+		},
+		"deployedBytecode": {
+			"generatedSources": [],
+			"immutableReferences": {},
+			"linkReferences": {},
+			"object": "",
+			"opcodes": "",
+			"sourceMap": ""
+		},
+		"gasEstimates": null,
+		"methodIdentifiers": {
+			"directDeposit(address,uint256,bytes)": "02592d37",
+			"directDeposit(address,uint256,string)": "6918822d",
+			"directDepositFee()": "35d3cbcc",
+			"directDepositNonce()": "b85369e6",
+			"directDepositTimeout()": "b130603e",
+			"getDirectDeposit(uint256)": "c278b761",
+			"onTokenTransfer(address,uint256,bytes)": "a4c0ed36",
+			"refundDirectDeposit(uint256)": "d7f59caa",
+			"refundDirectDeposit(uint256[])": "68dc1c55"
+		}
+	},
+	"abi": [
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "fallbackReceiver",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "amount",
+					"type": "uint256"
+				},
+				{
+					"internalType": "bytes",
+					"name": "zkAddress",
+					"type": "bytes"
+				}
+			],
+			"name": "directDeposit",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "depositId",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "fallbackReceiver",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "amount",
+					"type": "uint256"
+				},
+				{
+					"internalType": "string",
+					"name": "zkAddress",
+					"type": "string"
+				}
+			],
+			"name": "directDeposit",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "depositId",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "directDepositFee",
+			"outputs": [
+				{
+					"internalType": "uint64",
+					"name": "fee",
+					"type": "uint64"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "directDepositNonce",
+			"outputs": [
+				{
+					"internalType": "uint32",
+					"name": "nonce",
+					"type": "uint32"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "directDepositTimeout",
+			"outputs": [
+				{
+					"internalType": "uint40",
+					"name": "timeout",
+					"type": "uint40"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "depositId",
+					"type": "uint256"
+				}
+			],
+			"name": "getDirectDeposit",
+			"outputs": [
+				{
+					"components": [
+						{
+							"internalType": "address",
+							"name": "fallbackReceiver",
+							"type": "address"
+						},
+						{
+							"internalType": "uint96",
+							"name": "sent",
+							"type": "uint96"
+						},
+						{
+							"internalType": "uint64",
+							"name": "deposit",
+							"type": "uint64"
+						},
+						{
+							"internalType": "uint64",
+							"name": "fee",
+							"type": "uint64"
+						},
+						{
+							"internalType": "uint40",
+							"name": "timestamp",
+							"type": "uint40"
+						},
+						{
+							"internalType": "enum IZkBobDirectDeposits.DirectDepositStatus",
+							"name": "status",
+							"type": "uint8"
+						},
+						{
+							"internalType": "bytes10",
+							"name": "diversifier",
+							"type": "bytes10"
+						},
+						{
+							"internalType": "bytes32",
+							"name": "pk",
+							"type": "bytes32"
+						}
+					],
+					"internalType": "struct IZkBobDirectDeposits.DirectDeposit",
+					"name": "deposit",
+					"type": "tuple"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "from",
+					"type": "address"
+				},
+				{
+					"internalType": "uint256",
+					"name": "amount",
+					"type": "uint256"
+				},
+				{
+					"internalType": "bytes",
+					"name": "data",
+					"type": "bytes"
+				}
+			],
+			"name": "onTokenTransfer",
+			"outputs": [
+				{
+					"internalType": "bool",
+					"name": "ok",
+					"type": "bool"
+				}
+			],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256[]",
+					"name": "indices",
+					"type": "uint256[]"
+				}
+			],
+			"name": "refundDirectDeposit",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "index",
+					"type": "uint256"
+				}
+			],
+			"name": "refundDirectDeposit",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		}
+	]
+}

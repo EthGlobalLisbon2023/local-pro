@@ -1,0 +1,47 @@
+{
+	"compiler": {
+		"version": "0.7.6+commit.7338295f"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"author": "Ricardo Guilherme Schmidt (Status Research & Development GmbH)Richard Meissner - <richard@gnosis.pm>",
+			"kind": "dev",
+			"methods": {},
+			"title": "SignatureDecoder - Decodes signatures that a encoded as bytes",
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/SignatureDecoder.sol": "SignatureDecoder"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/SignatureDecoder.sol": {
+			"keccak256": "0x1d1caca4289f911554c7987ae708e8c3f1112f8ccfae480733f81fe9b054c489",
+			"license": "LGPL-3.0-only",
+			"urls": [
+				"bzz-raw://cd9aad61d50f80b3ff82dbebb7b0a1728b632f0e04d264384e30e250b05c9eb3",
+				"dweb:/ipfs/QmaUUny4LjYp7yJpFuDwMf2HZjs5jYsPLQv1qmrubeptWG"
+			]
+		}
+	},
+	"version": 1
+}

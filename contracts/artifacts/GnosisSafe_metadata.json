@@ -1,0 +1,114 @@
+{
+	"compiler": {
+		"version": "0.8.0+commit.c7dfd78e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes",
+						"name": "data",
+						"type": "bytes"
+					},
+					{
+						"internalType": "enum Enum.Operation",
+						"name": "operation",
+						"type": "uint8"
+					}
+				],
+				"name": "execTransactionFromModule",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "success",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"execTransactionFromModule(address,uint256,bytes,uint8)": {
+					"details": "Allows a Module to execute a Safe transaction without any further confirmations.",
+					"params": {
+						"data": "Data payload of module transaction.",
+						"operation": "Operation type of module transaction.",
+						"to": "Destination address of module transaction.",
+						"value": "Ether value of module transaction."
+					}
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/RoleModule.sol": "GnosisSafe"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0x9750c6b834f7b43000631af5cc30001c5f547b3ceb3635488f140f60e897ea6b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://5a7d5b1ef5d8d5889ad2ed89d8619c09383b80b72ab226e0fe7bde1636481e34",
+				"dweb:/ipfs/QmebXWgtEfumQGBdVeM6c71McLixYXQP5Bk6kKXuoY4Bmr"
+			]
+		},
+		"contracts/Enum.sol": {
+			"keccak256": "0x2a46ae05513b0fba388d5290b8ad28c97ebf66a0796609a129ae7bb259df2c0d",
+			"license": "LGPL-3.0-only",
+			"urls": [
+				"bzz-raw://a955c37ea833618bae55079c71abacc723d16ee1c11f51536d6162bd7fc7fbb0",
+				"dweb:/ipfs/QmV5GEfgc1TCmXTP8fbCP6BWJtwps6pb27jaYZ1TGbsbmF"
+			]
+		},
+		"contracts/IZkBobDirectDeposits.sol": {
+			"keccak256": "0x8a66f7d60e526e7e0e4e9b8eea3cc64357fa7487504a22feac9d02db048456d3",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://4e611f9b31b691ed42d2debcca1afcb6226cf13ed149c18c7c599146f1266cea",
+				"dweb:/ipfs/QmUpCB8AhqFKjPRAwgjrqku5E8ozM961d9h29Q9Dz7VXLf"
+			]
+		},
+		"contracts/RoleModule.sol": {
+			"keccak256": "0xd58ae41abb0dff495488301f981260a326d0e7266b30ac04df49ee41953dab49",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://aa4c8d6682b5b05b86e6944f7924f04ce01811af159d8d76923528db44b2ab82",
+				"dweb:/ipfs/QmTUf7zBdSdZWuV8goKjDhewpjAoFkeJNy39WSqDRDPdqJ"
+			]
+		}
+	},
+	"version": 1
+}
