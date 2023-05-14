@@ -98,7 +98,7 @@
           "type": "string",
           "format": "uri"
         },
-        "isOver18": {
+        "isDone": {
           "type": "boolean"
         }
       }

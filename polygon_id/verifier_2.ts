@@ -60,10 +60,10 @@ async function GetAuthRequest(req:any,res) {
         circuitId: 'credentialAtomicQuerySigV2',
         query: {
             allowedIssuers: ['*'],
-            type: 'Over18',
-            context: 'https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Over18-2.json-ld',
+            type: 'Task1isDone',
+            context: 'https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Task1Done.json-ld',
             credentialSubject: {
-                isOver18: {
+                isDone: {
                     $eq: true,
                 },
             },
