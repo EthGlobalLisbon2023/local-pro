@@ -1,7 +1,16 @@
 # Local Pro
 Hosted at: https://local-pro.vercel.app/
 
-Our platform serves as a bridge between off-chain freelancing work and on-chain coordination, revolutionizing the way workers and organizations collaborate. Workers can easily apply for tasks published by organizations and receive credentials based on their performance. These credentials can then be reused to apply for future jobs, streamlining the job application process.
+The LocalPro infrastructure revolutionizes global organizations' collaboration with local independent workers by introducing on-chain verification and incentivization to local offline work.
+
+## Context
+In today's interconnected world, there is a growing demand for hyper-local contract work, such as setting up local IoT infrastructure or fulfilling municipal tasks. However, managing local workforces poses challenges for organizations, especially when it comes to verifying workers who use specialized equipment or interact with minors. According to Glassdoor, verification checks alone can cost up to $500. Moreover, ensuring quality control of offline tasks that lack data points is a difficult task. On the other hand, local gig workers face significant challenges, with 71% experiencing high-income volatility and 61% lacking a clear path for growth, as reported by the Freelancers Union.
+
+LocalPro bridges the gap between global organizations and independent local workforces by leveraging trustless verification of identity and performance. Our transparent cross-organizational credential system paves the way for clear growth paths, coordination efficiencies, and ultimately, more stable work opportunities for local workers. To address the complexities of on-chain coordination, we have prioritized an improved user experience through Account Abstraction. Furthermore, we ensure data privacy and compliance using ZK-privacy with PolygonID, unlocking the mass market for offline work like never before.
+
+As part of our participation in ETH Global, we are showcasing a functional prototype that demonstrates the user flow from onboarding to settlement. The prototype focuses on "proof of performance" as a hyper-local verification of a worker's capabilities. It includes automated settlement payouts and reputation credentialing, which open up new opportunities on our LocalPro marketplace.
+
+Our use case is informed by one of our team members' previous work with a European city that aims to digitize and decentralize the coordination and contracting of after-school activities. The current manual process lacks transparency and poses the challenges mentioned above, which we aim to address through this project.
 
 ## Tools Used
 - SAFE: To enhance user experience and simplify the payment and verification processes, we leverage advanced tools and technologies. The Protocol kit and Auth kits are utilized to automate payments and issue PolygonID Verifiable Credentials (VCs), ensuring a seamless and secure transaction environment for all parties involved.
