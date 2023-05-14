@@ -209,5 +209,6 @@ async function Callback(req:any,res) {
         return res.status(500).send(error);
     }
     console.log("authResponse", JSON.stringify(authResponse))
+    verificationResult = true;
     return res.status(200).set('Content-Type', 'application/json').send("user with ID: " + authResponse.from + " Succesfully authenticated");
 }

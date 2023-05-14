@@ -39,7 +39,7 @@ npm install
 In order to run the verifier locally you would need to proxy the local port to a publically accessible url.
 You can do it with ngrok. 
 ```
-ngrok http 3002;
+ngrok http 8080;
 ```
 Then you would need to change the verifier url in the `env file. 
 ```
