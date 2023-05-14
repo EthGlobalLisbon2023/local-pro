@@ -1,0 +1,1522 @@
+{
+	"id": "71e583ba5b85940ff0e55b4a9ab92b6f",
+	"_format": "hh-sol-build-info-1",
+	"solcVersion": "0.8.0",
+	"solcLongVersion": "0.8.0+commit.c7dfd78e",
+	"input": {
+		"language": "Solidity",
+		"sources": {
+			"contracts/IZkBobDirectDeposits.sol": {
+				"content": "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.8.0;\n\ninterface IZkBobDirectDeposits {\n    enum DirectDepositStatus {\n        Missing, // requested deposit does not exist\n        Pending, // requested deposit was submitted and is pending in the queue\n        Completed, // requested deposit was successfully processed\n        Refunded // requested deposit was refunded to the fallback receiver\n    }\n\n    struct DirectDeposit {\n        address fallbackReceiver; // refund receiver for deposits that cannot be processed\n        uint96 sent; // sent amount in BOB tokens (18 decimals)\n        uint64 deposit; // deposit amount, after subtracting all fees (9 decimals)\n        uint64 fee; // deposit fee (9 decimals)\n        uint40 timestamp; // deposit submission timestamp\n        DirectDepositStatus status; // deposit status\n        bytes10 diversifier; // receiver zk address, part 1/2\n        bytes32 pk; // receiver zk address, part 2/2\n    }\n\n    /**\n     * @notice Retrieves the direct deposits from the queue by its id.\n     * @param depositId id of the submitted deposit.\n     * @return deposit recorded deposit struct\n     */\n    function getDirectDeposit(uint256 depositId) external view returns (DirectDeposit memory deposit);\n\n    /**\n     * @notice Performs a direct deposit to the specified zk address.\n     * In case the deposit cannot be processed, it can be refunded later to the fallbackReceiver address.\n     * @param fallbackReceiver receiver of deposit refund.\n     * @param amount direct deposit amount.\n     * @param zkAddress receiver zk address.\n     * @return depositId id of the submitted deposit to query status for.\n     */\n    function directDeposit(\n        address fallbackReceiver,\n        uint256 amount,\n        bytes memory zkAddress\n    )\n        external\n        returns (uint256 depositId);\n\n    /**\n     * @notice Performs a direct deposit to the specified zk address.\n     * In case the deposit cannot be processed, it can be refunded later to the fallbackReceiver address.\n     * @param fallbackReceiver receiver of deposit refund.\n     * @param amount direct deposit amount.\n     * @param zkAddress receiver zk address.\n     * @return depositId id of the submitted deposit to query status for.\n     */\n    function directDeposit(\n        address fallbackReceiver,\n        uint256 amount,\n        string memory zkAddress\n    )\n        external\n        returns (uint256 depositId);\n\n    /**\n     * @notice ERC677 callback for performing a direct deposit.\n     * Do not call this function directly, it's only intended to be called by the token contract.\n     * @param from original tokens sender.\n     * @param amount direct deposit amount.\n     * @param data encoded address pair - abi.encode(address(fallbackReceiver), bytes(zkAddress))\n     * @return ok true, if deposit of submitted successfully.\n     */\n    function onTokenTransfer(address from, uint256 amount, bytes memory data) external returns (bool ok);\n\n    /**\n     * @notice Tells the direct deposit fee, in zkBOB units (9 decimals).\n     * @return fee direct deposit submission fee.\n     */\n    function directDepositFee() external view returns (uint64 fee);\n\n    /**\n     * @notice Tells the timeout after which unprocessed direct deposits can be refunded.\n     * @return timeout duration in seconds.\n     */\n    function directDepositTimeout() external view returns (uint40 timeout);\n\n    /**\n     * @notice Tells the nonce of next direct deposit.\n     * @return nonce direct deposit nonce.\n     */\n    function directDepositNonce() external view returns (uint32 nonce);\n\n    /**\n     * @notice Refunds specified direct deposit.\n     * Can be called by anyone, but only after the configured timeout has passed.\n     * Function will revert for deposit that is not pending.\n     * @param index deposit id to issue a refund for.\n     */\n    function refundDirectDeposit(uint256 index) external;\n\n    /**\n     * @notice Refunds multiple direct deposits.\n     * Can be called by anyone, but only after the configured timeout has passed.\n     * Function will do nothing for non-pending deposits and will not revert.\n     * @param indices deposit ids to issue a refund for.\n     */\n    function refundDirectDeposit(uint256[] memory indices) external;\n}"
+			}
+		},
+		"settings": {
+			"optimizer": {
+				"enabled": false,
+				"runs": 200
+			},
+			"outputSelection": {
+				"*": {
+					"": [
+						"ast"
+					],
+					"*": [
+						"abi",
+						"metadata",
+						"devdoc",
+						"userdoc",
+						"storageLayout",
+						"evm.legacyAssembly",
+						"evm.bytecode",
+						"evm.deployedBytecode",
+						"evm.methodIdentifiers",
+						"evm.gasEstimates",
+						"evm.assembly"
+					]
+				}
+			}
+		}
+	},
+	"output": {
+		"contracts": {
+			"contracts/IZkBobDirectDeposits.sol": {
+				"IZkBobDirectDeposits": {
+					"abi": [
+						{
+							"inputs": [
+								{
+									"internalType": "address",
+									"name": "fallbackReceiver",
+									"type": "address"
+								},
+								{
+									"internalType": "uint256",
+									"name": "amount",
+									"type": "uint256"
+								},
+								{
+									"internalType": "bytes",
+									"name": "zkAddress",
+									"type": "bytes"
+								}
+							],
+							"name": "directDeposit",
+							"outputs": [
+								{
+									"internalType": "uint256",
+									"name": "depositId",
+									"type": "uint256"
+								}
+							],
+							"stateMutability": "nonpayable",
+							"type": "function"
+						},
+						{
+							"inputs": [
+								{
+									"internalType": "address",
+									"name": "fallbackReceiver",
+									"type": "address"
+								},
+								{
+									"internalType": "uint256",
+									"name": "amount",
+									"type": "uint256"
+								},
+								{
+									"internalType": "string",
+									"name": "zkAddress",
+									"type": "string"
+								}
+							],
+							"name": "directDeposit",
+							"outputs": [
+								{
+									"internalType": "uint256",
+									"name": "depositId",
+									"type": "uint256"
+								}
+							],
+							"stateMutability": "nonpayable",
+							"type": "function"
+						},
+						{
+							"inputs": [],
+							"name": "directDepositFee",
+							"outputs": [
+								{
+									"internalType": "uint64",
+									"name": "fee",
+									"type": "uint64"
+								}
+							],
+							"stateMutability": "view",
+							"type": "function"
+						},
+						{
+							"inputs": [],
+							"name": "directDepositNonce",
+							"outputs": [
+								{
+									"internalType": "uint32",
+									"name": "nonce",
+									"type": "uint32"
+								}
+							],
+							"stateMutability": "view",
+							"type": "function"
+						},
+						{
+							"inputs": [],
+							"name": "directDepositTimeout",
+							"outputs": [
+								{
+									"internalType": "uint40",
+									"name": "timeout",
+									"type": "uint40"
+								}
+							],
+							"stateMutability": "view",
+							"type": "function"
+						},
+						{
+							"inputs": [
+								{
+									"internalType": "uint256",
+									"name": "depositId",
+									"type": "uint256"
+								}
+							],
+							"name": "getDirectDeposit",
+							"outputs": [
+								{
+									"components": [
+										{
+											"internalType": "address",
+											"name": "fallbackReceiver",
+											"type": "address"
+										},
+										{
+											"internalType": "uint96",
+											"name": "sent",
+											"type": "uint96"
+										},
+										{
+											"internalType": "uint64",
+											"name": "deposit",
+											"type": "uint64"
+										},
+										{
+											"internalType": "uint64",
+											"name": "fee",
+											"type": "uint64"
+										},
+										{
+											"internalType": "uint40",
+											"name": "timestamp",
+											"type": "uint40"
+										},
+										{
+											"internalType": "enum IZkBobDirectDeposits.DirectDepositStatus",
+											"name": "status",
+											"type": "uint8"
+										},
+										{
+											"internalType": "bytes10",
+											"name": "diversifier",
+											"type": "bytes10"
+										},
+										{
+											"internalType": "bytes32",
+											"name": "pk",
+											"type": "bytes32"
+										}
+									],
+									"internalType": "struct IZkBobDirectDeposits.DirectDeposit",
+									"name": "deposit",
+									"type": "tuple"
+								}
+							],
+							"stateMutability": "view",
+							"type": "function"
+						},
+						{
+							"inputs": [
+								{
+									"internalType": "address",
+									"name": "from",
+									"type": "address"
+								},
+								{
+									"internalType": "uint256",
+									"name": "amount",
+									"type": "uint256"
+								},
+								{
+									"internalType": "bytes",
+									"name": "data",
+									"type": "bytes"
+								}
+							],
+							"name": "onTokenTransfer",
+							"outputs": [
+								{
+									"internalType": "bool",
+									"name": "ok",
+									"type": "bool"
+								}
+							],
+							"stateMutability": "nonpayable",
+							"type": "function"
+						},
+						{
+							"inputs": [
+								{
+									"internalType": "uint256[]",
+									"name": "indices",
+									"type": "uint256[]"
+								}
+							],
+							"name": "refundDirectDeposit",
+							"outputs": [],
+							"stateMutability": "nonpayable",
+							"type": "function"
+						},
+						{
+							"inputs": [
+								{
+									"internalType": "uint256",
+									"name": "index",
+									"type": "uint256"
+								}
+							],
+							"name": "refundDirectDeposit",
+							"outputs": [],
+							"stateMutability": "nonpayable",
+							"type": "function"
+						}
+					],
+					"devdoc": {
+						"kind": "dev",
+						"methods": {
+							"directDeposit(address,uint256,bytes)": {
+								"params": {
+									"amount": "direct deposit amount.",
+									"fallbackReceiver": "receiver of deposit refund.",
+									"zkAddress": "receiver zk address."
+								},
+								"returns": {
+									"depositId": "id of the submitted deposit to query status for."
+								}
+							},
+							"directDeposit(address,uint256,string)": {
+								"params": {
+									"amount": "direct deposit amount.",
+									"fallbackReceiver": "receiver of deposit refund.",
+									"zkAddress": "receiver zk address."
+								},
+								"returns": {
+									"depositId": "id of the submitted deposit to query status for."
+								}
+							},
+							"directDepositFee()": {
+								"returns": {
+									"fee": "direct deposit submission fee."
+								}
+							},
+							"directDepositNonce()": {
+								"returns": {
+									"nonce": "direct deposit nonce."
+								}
+							},
+							"directDepositTimeout()": {
+								"returns": {
+									"timeout": "duration in seconds."
+								}
+							},
+							"getDirectDeposit(uint256)": {
+								"params": {
+									"depositId": "id of the submitted deposit."
+								},
+								"returns": {
+									"deposit": "recorded deposit struct"
+								}
+							},
+							"onTokenTransfer(address,uint256,bytes)": {
+								"params": {
+									"amount": "direct deposit amount.",
+									"data": "encoded address pair - abi.encode(address(fallbackReceiver), bytes(zkAddress))",
+									"from": "original tokens sender."
+								},
+								"returns": {
+									"ok": "true, if deposit of submitted successfully."
+								}
+							},
+							"refundDirectDeposit(uint256)": {
+								"params": {
+									"index": "deposit id to issue a refund for."
+								}
+							},
+							"refundDirectDeposit(uint256[])": {
+								"params": {
+									"indices": "deposit ids to issue a refund for."
+								}
+							}
+						},
+						"version": 1
+					},
+					"evm": {
+						"assembly": "",
+						"bytecode": {
+							"generatedSources": [],
+							"linkReferences": {},
+							"object": "",
+							"opcodes": "",
+							"sourceMap": ""
+						},
+						"deployedBytecode": {
+							"generatedSources": [],
+							"immutableReferences": {},
+							"linkReferences": {},
+							"object": "",
+							"opcodes": "",
+							"sourceMap": ""
+						},
+						"gasEstimates": null,
+						"legacyAssembly": null,
+						"methodIdentifiers": {
+							"directDeposit(address,uint256,bytes)": "02592d37",
+							"directDeposit(address,uint256,string)": "6918822d",
+							"directDepositFee()": "35d3cbcc",
+							"directDepositNonce()": "b85369e6",
+							"directDepositTimeout()": "b130603e",
+							"getDirectDeposit(uint256)": "c278b761",
+							"onTokenTransfer(address,uint256,bytes)": "a4c0ed36",
+							"refundDirectDeposit(uint256)": "d7f59caa",
+							"refundDirectDeposit(uint256[])": "68dc1c55"
+						}
+					},
+					"metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"fallbackReceiver\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"zkAddress\",\"type\":\"bytes\"}],\"name\":\"directDeposit\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"depositId\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"fallbackReceiver\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"zkAddress\",\"type\":\"string\"}],\"name\":\"directDeposit\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"depositId\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"directDepositFee\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"fee\",\"type\":\"uint64\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"directDepositNonce\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"nonce\",\"type\":\"uint32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"directDepositTimeout\",\"outputs\":[{\"internalType\":\"uint40\",\"name\":\"timeout\",\"type\":\"uint40\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"depositId\",\"type\":\"uint256\"}],\"name\":\"getDirectDeposit\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"fallbackReceiver\",\"type\":\"address\"},{\"internalType\":\"uint96\",\"name\":\"sent\",\"type\":\"uint96\"},{\"internalType\":\"uint64\",\"name\":\"deposit\",\"type\":\"uint64\"},{\"internalType\":\"uint64\",\"name\":\"fee\",\"type\":\"uint64\"},{\"internalType\":\"uint40\",\"name\":\"timestamp\",\"type\":\"uint40\"},{\"internalType\":\"enum IZkBobDirectDeposits.DirectDepositStatus\",\"name\":\"status\",\"type\":\"uint8\"},{\"internalType\":\"bytes10\",\"name\":\"diversifier\",\"type\":\"bytes10\"},{\"internalType\":\"bytes32\",\"name\":\"pk\",\"type\":\"bytes32\"}],\"internalType\":\"struct IZkBobDirectDeposits.DirectDeposit\",\"name\":\"deposit\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"onTokenTransfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"ok\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"indices\",\"type\":\"uint256[]\"}],\"name\":\"refundDirectDeposit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"refundDirectDeposit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"directDeposit(address,uint256,bytes)\":{\"params\":{\"amount\":\"direct deposit amount.\",\"fallbackReceiver\":\"receiver of deposit refund.\",\"zkAddress\":\"receiver zk address.\"},\"returns\":{\"depositId\":\"id of the submitted deposit to query status for.\"}},\"directDeposit(address,uint256,string)\":{\"params\":{\"amount\":\"direct deposit amount.\",\"fallbackReceiver\":\"receiver of deposit refund.\",\"zkAddress\":\"receiver zk address.\"},\"returns\":{\"depositId\":\"id of the submitted deposit to query status for.\"}},\"directDepositFee()\":{\"returns\":{\"fee\":\"direct deposit submission fee.\"}},\"directDepositNonce()\":{\"returns\":{\"nonce\":\"direct deposit nonce.\"}},\"directDepositTimeout()\":{\"returns\":{\"timeout\":\"duration in seconds.\"}},\"getDirectDeposit(uint256)\":{\"params\":{\"depositId\":\"id of the submitted deposit.\"},\"returns\":{\"deposit\":\"recorded deposit struct\"}},\"onTokenTransfer(address,uint256,bytes)\":{\"params\":{\"amount\":\"direct deposit amount.\",\"data\":\"encoded address pair - abi.encode(address(fallbackReceiver), bytes(zkAddress))\",\"from\":\"original tokens sender.\"},\"returns\":{\"ok\":\"true, if deposit of submitted successfully.\"}},\"refundDirectDeposit(uint256)\":{\"params\":{\"index\":\"deposit id to issue a refund for.\"}},\"refundDirectDeposit(uint256[])\":{\"params\":{\"indices\":\"deposit ids to issue a refund for.\"}}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"directDeposit(address,uint256,bytes)\":{\"notice\":\"Performs a direct deposit to the specified zk address. In case the deposit cannot be processed, it can be refunded later to the fallbackReceiver address.\"},\"directDeposit(address,uint256,string)\":{\"notice\":\"Performs a direct deposit to the specified zk address. In case the deposit cannot be processed, it can be refunded later to the fallbackReceiver address.\"},\"directDepositFee()\":{\"notice\":\"Tells the direct deposit fee, in zkBOB units (9 decimals).\"},\"directDepositNonce()\":{\"notice\":\"Tells the nonce of next direct deposit.\"},\"directDepositTimeout()\":{\"notice\":\"Tells the timeout after which unprocessed direct deposits can be refunded.\"},\"getDirectDeposit(uint256)\":{\"notice\":\"Retrieves the direct deposits from the queue by its id.\"},\"onTokenTransfer(address,uint256,bytes)\":{\"notice\":\"ERC677 callback for performing a direct deposit. Do not call this function directly, it's only intended to be called by the token contract.\"},\"refundDirectDeposit(uint256)\":{\"notice\":\"Refunds specified direct deposit. Can be called by anyone, but only after the configured timeout has passed. Function will revert for deposit that is not pending.\"},\"refundDirectDeposit(uint256[])\":{\"notice\":\"Refunds multiple direct deposits. Can be called by anyone, but only after the configured timeout has passed. Function will do nothing for non-pending deposits and will not revert.\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/IZkBobDirectDeposits.sol\":\"IZkBobDirectDeposits\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/IZkBobDirectDeposits.sol\":{\"keccak256\":\"0x8a66f7d60e526e7e0e4e9b8eea3cc64357fa7487504a22feac9d02db048456d3\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://4e611f9b31b691ed42d2debcca1afcb6226cf13ed149c18c7c599146f1266cea\",\"dweb:/ipfs/QmUpCB8AhqFKjPRAwgjrqku5E8ozM961d9h29Q9Dz7VXLf\"]}},\"version\":1}",
+					"storageLayout": {
+						"storage": [],
+						"types": null
+					},
+					"userdoc": {
+						"kind": "user",
+						"methods": {
+							"directDeposit(address,uint256,bytes)": {
+								"notice": "Performs a direct deposit to the specified zk address. In case the deposit cannot be processed, it can be refunded later to the fallbackReceiver address."
+							},
+							"directDeposit(address,uint256,string)": {
+								"notice": "Performs a direct deposit to the specified zk address. In case the deposit cannot be processed, it can be refunded later to the fallbackReceiver address."
+							},
+							"directDepositFee()": {
+								"notice": "Tells the direct deposit fee, in zkBOB units (9 decimals)."
+							},
+							"directDepositNonce()": {
+								"notice": "Tells the nonce of next direct deposit."
+							},
+							"directDepositTimeout()": {
+								"notice": "Tells the timeout after which unprocessed direct deposits can be refunded."
+							},
+							"getDirectDeposit(uint256)": {
+								"notice": "Retrieves the direct deposits from the queue by its id."
+							},
+							"onTokenTransfer(address,uint256,bytes)": {
+								"notice": "ERC677 callback for performing a direct deposit. Do not call this function directly, it's only intended to be called by the token contract."
+							},
+							"refundDirectDeposit(uint256)": {
+								"notice": "Refunds specified direct deposit. Can be called by anyone, but only after the configured timeout has passed. Function will revert for deposit that is not pending."
+							},
+							"refundDirectDeposit(uint256[])": {
+								"notice": "Refunds multiple direct deposits. Can be called by anyone, but only after the configured timeout has passed. Function will do nothing for non-pending deposits and will not revert."
+							}
+						},
+						"version": 1
+					}
+				}
+			}
+		},
+		"sources": {
+			"contracts/IZkBobDirectDeposits.sol": {
+				"ast": {
+					"absolutePath": "contracts/IZkBobDirectDeposits.sol",
+					"exportedSymbols": {
+						"IZkBobDirectDeposits": [
+							101
+						]
+					},
+					"id": 102,
+					"license": "MIT",
+					"nodeType": "SourceUnit",
+					"nodes": [
+						{
+							"id": 1,
+							"literals": [
+								"solidity",
+								"^",
+								"0.8",
+								".0"
+							],
+							"nodeType": "PragmaDirective",
+							"src": "33:23:0"
+						},
+						{
+							"abstract": false,
+							"baseContracts": [],
+							"contractDependencies": [],
+							"contractKind": "interface",
+							"fullyImplemented": false,
+							"id": 101,
+							"linearizedBaseContracts": [
+								101
+							],
+							"name": "IZkBobDirectDeposits",
+							"nodeType": "ContractDefinition",
+							"nodes": [
+								{
+									"canonicalName": "IZkBobDirectDeposits.DirectDepositStatus",
+									"id": 6,
+									"members": [
+										{
+											"id": 2,
+											"name": "Missing",
+											"nodeType": "EnumValue",
+											"src": "130:7:0"
+										},
+										{
+											"id": 3,
+											"name": "Pending",
+											"nodeType": "EnumValue",
+											"src": "183:7:0"
+										},
+										{
+											"id": 4,
+											"name": "Completed",
+											"nodeType": "EnumValue",
+											"src": "263:9:0"
+										},
+										{
+											"id": 5,
+											"name": "Refunded",
+											"nodeType": "EnumValue",
+											"src": "330:8:0"
+										}
+									],
+									"name": "DirectDepositStatus",
+									"nodeType": "EnumDefinition",
+									"src": "95:308:0"
+								},
+								{
+									"canonicalName": "IZkBobDirectDeposits.DirectDeposit",
+									"id": 24,
+									"members": [
+										{
+											"constant": false,
+											"id": 8,
+											"mutability": "mutable",
+											"name": "fallbackReceiver",
+											"nodeType": "VariableDeclaration",
+											"scope": 24,
+											"src": "440:24:0",
+											"stateVariable": false,
+											"storageLocation": "default",
+											"typeDescriptions": {
+												"typeIdentifier": "t_address",
+												"typeString": "address"
+											},
+											"typeName": {
+												"id": 7,
+												"name": "address",
+												"nodeType": "ElementaryTypeName",
+												"src": "440:7:0",
+												"stateMutability": "nonpayable",
+												"typeDescriptions": {
+													"typeIdentifier": "t_address",
+													"typeString": "address"
+												}
+											},
+											"visibility": "internal"
+										},
+										{
+											"constant": false,
+											"id": 10,
+											"mutability": "mutable",
+											"name": "sent",
+											"nodeType": "VariableDeclaration",
+											"scope": 24,
+											"src": "531:11:0",
+											"stateVariable": false,
+											"storageLocation": "default",
+											"typeDescriptions": {
+												"typeIdentifier": "t_uint96",
+												"typeString": "uint96"
+											},
+											"typeName": {
+												"id": 9,
+												"name": "uint96",
+												"nodeType": "ElementaryTypeName",
+												"src": "531:6:0",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint96",
+													"typeString": "uint96"
+												}
+											},
+											"visibility": "internal"
+										},
+										{
+											"constant": false,
+											"id": 12,
+											"mutability": "mutable",
+											"name": "deposit",
+											"nodeType": "VariableDeclaration",
+											"scope": 24,
+											"src": "595:14:0",
+											"stateVariable": false,
+											"storageLocation": "default",
+											"typeDescriptions": {
+												"typeIdentifier": "t_uint64",
+												"typeString": "uint64"
+											},
+											"typeName": {
+												"id": 11,
+												"name": "uint64",
+												"nodeType": "ElementaryTypeName",
+												"src": "595:6:0",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint64",
+													"typeString": "uint64"
+												}
+											},
+											"visibility": "internal"
+										},
+										{
+											"constant": false,
+											"id": 14,
+											"mutability": "mutable",
+											"name": "fee",
+											"nodeType": "VariableDeclaration",
+											"scope": 24,
+											"src": "678:10:0",
+											"stateVariable": false,
+											"storageLocation": "default",
+											"typeDescriptions": {
+												"typeIdentifier": "t_uint64",
+												"typeString": "uint64"
+											},
+											"typeName": {
+												"id": 13,
+												"name": "uint64",
+												"nodeType": "ElementaryTypeName",
+												"src": "678:6:0",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint64",
+													"typeString": "uint64"
+												}
+											},
+											"visibility": "internal"
+										},
+										{
+											"constant": false,
+											"id": 16,
+											"mutability": "mutable",
+											"name": "timestamp",
+											"nodeType": "VariableDeclaration",
+											"scope": 24,
+											"src": "726:16:0",
+											"stateVariable": false,
+											"storageLocation": "default",
+											"typeDescriptions": {
+												"typeIdentifier": "t_uint40",
+												"typeString": "uint40"
+											},
+											"typeName": {
+												"id": 15,
+												"name": "uint40",
+												"nodeType": "ElementaryTypeName",
+												"src": "726:6:0",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint40",
+													"typeString": "uint40"
+												}
+											},
+											"visibility": "internal"
+										},
+										{
+											"constant": false,
+											"id": 19,
+											"mutability": "mutable",
+											"name": "status",
+											"nodeType": "VariableDeclaration",
+											"scope": 24,
+											"src": "784:26:0",
+											"stateVariable": false,
+											"storageLocation": "default",
+											"typeDescriptions": {
+												"typeIdentifier": "t_enum$_DirectDepositStatus_$6",
+												"typeString": "enum IZkBobDirectDeposits.DirectDepositStatus"
+											},
+											"typeName": {
+												"id": 18,
+												"nodeType": "UserDefinedTypeName",
+												"pathNode": {
+													"id": 17,
+													"name": "DirectDepositStatus",
+													"nodeType": "IdentifierPath",
+													"referencedDeclaration": 6,
+													"src": "784:19:0"
+												},
+												"referencedDeclaration": 6,
+												"src": "784:19:0",
+												"typeDescriptions": {
+													"typeIdentifier": "t_enum$_DirectDepositStatus_$6",
+													"typeString": "enum IZkBobDirectDeposits.DirectDepositStatus"
+												}
+											},
+											"visibility": "internal"
+										},
+										{
+											"constant": false,
+											"id": 21,
+											"mutability": "mutable",
+											"name": "diversifier",
+											"nodeType": "VariableDeclaration",
+											"scope": 24,
+											"src": "838:19:0",
+											"stateVariable": false,
+											"storageLocation": "default",
+											"typeDescriptions": {
+												"typeIdentifier": "t_bytes10",
+												"typeString": "bytes10"
+											},
+											"typeName": {
+												"id": 20,
+												"name": "bytes10",
+												"nodeType": "ElementaryTypeName",
+												"src": "838:7:0",
+												"typeDescriptions": {
+													"typeIdentifier": "t_bytes10",
+													"typeString": "bytes10"
+												}
+											},
+											"visibility": "internal"
+										},
+										{
+											"constant": false,
+											"id": 23,
+											"mutability": "mutable",
+											"name": "pk",
+											"nodeType": "VariableDeclaration",
+											"scope": 24,
+											"src": "900:10:0",
+											"stateVariable": false,
+											"storageLocation": "default",
+											"typeDescriptions": {
+												"typeIdentifier": "t_bytes32",
+												"typeString": "bytes32"
+											},
+											"typeName": {
+												"id": 22,
+												"name": "bytes32",
+												"nodeType": "ElementaryTypeName",
+												"src": "900:7:0",
+												"typeDescriptions": {
+													"typeIdentifier": "t_bytes32",
+													"typeString": "bytes32"
+												}
+											},
+											"visibility": "internal"
+										}
+									],
+									"name": "DirectDeposit",
+									"nodeType": "StructDefinition",
+									"scope": 101,
+									"src": "409:541:0",
+									"visibility": "public"
+								},
+								{
+									"documentation": {
+										"id": 25,
+										"nodeType": "StructuredDocumentation",
+										"src": "956:182:0",
+										"text": " @notice Retrieves the direct deposits from the queue by its id.\n @param depositId id of the submitted deposit.\n @return deposit recorded deposit struct"
+									},
+									"functionSelector": "c278b761",
+									"id": 33,
+									"implemented": false,
+									"kind": "function",
+									"modifiers": [],
+									"name": "getDirectDeposit",
+									"nodeType": "FunctionDefinition",
+									"parameters": {
+										"id": 28,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 27,
+												"mutability": "mutable",
+												"name": "depositId",
+												"nodeType": "VariableDeclaration",
+												"scope": 33,
+												"src": "1169:17:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 26,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "1169:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "1168:19:0"
+									},
+									"returnParameters": {
+										"id": 32,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 31,
+												"mutability": "mutable",
+												"name": "deposit",
+												"nodeType": "VariableDeclaration",
+												"scope": 33,
+												"src": "1211:28:0",
+												"stateVariable": false,
+												"storageLocation": "memory",
+												"typeDescriptions": {
+													"typeIdentifier": "t_struct$_DirectDeposit_$24_memory_ptr",
+													"typeString": "struct IZkBobDirectDeposits.DirectDeposit"
+												},
+												"typeName": {
+													"id": 30,
+													"nodeType": "UserDefinedTypeName",
+													"pathNode": {
+														"id": 29,
+														"name": "DirectDeposit",
+														"nodeType": "IdentifierPath",
+														"referencedDeclaration": 24,
+														"src": "1211:13:0"
+													},
+													"referencedDeclaration": 24,
+													"src": "1211:13:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_struct$_DirectDeposit_$24_storage_ptr",
+														"typeString": "struct IZkBobDirectDeposits.DirectDeposit"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "1210:30:0"
+									},
+									"scope": 101,
+									"src": "1143:98:0",
+									"stateMutability": "view",
+									"virtual": false,
+									"visibility": "external"
+								},
+								{
+									"documentation": {
+										"id": 34,
+										"nodeType": "StructuredDocumentation",
+										"src": "1247:409:0",
+										"text": " @notice Performs a direct deposit to the specified zk address.\n In case the deposit cannot be processed, it can be refunded later to the fallbackReceiver address.\n @param fallbackReceiver receiver of deposit refund.\n @param amount direct deposit amount.\n @param zkAddress receiver zk address.\n @return depositId id of the submitted deposit to query status for."
+									},
+									"functionSelector": "02592d37",
+									"id": 45,
+									"implemented": false,
+									"kind": "function",
+									"modifiers": [],
+									"name": "directDeposit",
+									"nodeType": "FunctionDefinition",
+									"parameters": {
+										"id": 41,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 36,
+												"mutability": "mutable",
+												"name": "fallbackReceiver",
+												"nodeType": "VariableDeclaration",
+												"scope": 45,
+												"src": "1693:24:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_address",
+													"typeString": "address"
+												},
+												"typeName": {
+													"id": 35,
+													"name": "address",
+													"nodeType": "ElementaryTypeName",
+													"src": "1693:7:0",
+													"stateMutability": "nonpayable",
+													"typeDescriptions": {
+														"typeIdentifier": "t_address",
+														"typeString": "address"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 38,
+												"mutability": "mutable",
+												"name": "amount",
+												"nodeType": "VariableDeclaration",
+												"scope": 45,
+												"src": "1727:14:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 37,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "1727:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 40,
+												"mutability": "mutable",
+												"name": "zkAddress",
+												"nodeType": "VariableDeclaration",
+												"scope": 45,
+												"src": "1751:22:0",
+												"stateVariable": false,
+												"storageLocation": "memory",
+												"typeDescriptions": {
+													"typeIdentifier": "t_bytes_memory_ptr",
+													"typeString": "bytes"
+												},
+												"typeName": {
+													"id": 39,
+													"name": "bytes",
+													"nodeType": "ElementaryTypeName",
+													"src": "1751:5:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_bytes_storage_ptr",
+														"typeString": "bytes"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "1683:96:0"
+									},
+									"returnParameters": {
+										"id": 44,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 43,
+												"mutability": "mutable",
+												"name": "depositId",
+												"nodeType": "VariableDeclaration",
+												"scope": 45,
+												"src": "1814:17:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 42,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "1814:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "1813:19:0"
+									},
+									"scope": 101,
+									"src": "1661:172:0",
+									"stateMutability": "nonpayable",
+									"virtual": false,
+									"visibility": "external"
+								},
+								{
+									"documentation": {
+										"id": 46,
+										"nodeType": "StructuredDocumentation",
+										"src": "1839:409:0",
+										"text": " @notice Performs a direct deposit to the specified zk address.\n In case the deposit cannot be processed, it can be refunded later to the fallbackReceiver address.\n @param fallbackReceiver receiver of deposit refund.\n @param amount direct deposit amount.\n @param zkAddress receiver zk address.\n @return depositId id of the submitted deposit to query status for."
+									},
+									"functionSelector": "6918822d",
+									"id": 57,
+									"implemented": false,
+									"kind": "function",
+									"modifiers": [],
+									"name": "directDeposit",
+									"nodeType": "FunctionDefinition",
+									"parameters": {
+										"id": 53,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 48,
+												"mutability": "mutable",
+												"name": "fallbackReceiver",
+												"nodeType": "VariableDeclaration",
+												"scope": 57,
+												"src": "2285:24:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_address",
+													"typeString": "address"
+												},
+												"typeName": {
+													"id": 47,
+													"name": "address",
+													"nodeType": "ElementaryTypeName",
+													"src": "2285:7:0",
+													"stateMutability": "nonpayable",
+													"typeDescriptions": {
+														"typeIdentifier": "t_address",
+														"typeString": "address"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 50,
+												"mutability": "mutable",
+												"name": "amount",
+												"nodeType": "VariableDeclaration",
+												"scope": 57,
+												"src": "2319:14:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 49,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "2319:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 52,
+												"mutability": "mutable",
+												"name": "zkAddress",
+												"nodeType": "VariableDeclaration",
+												"scope": 57,
+												"src": "2343:23:0",
+												"stateVariable": false,
+												"storageLocation": "memory",
+												"typeDescriptions": {
+													"typeIdentifier": "t_string_memory_ptr",
+													"typeString": "string"
+												},
+												"typeName": {
+													"id": 51,
+													"name": "string",
+													"nodeType": "ElementaryTypeName",
+													"src": "2343:6:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_string_storage_ptr",
+														"typeString": "string"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "2275:97:0"
+									},
+									"returnParameters": {
+										"id": 56,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 55,
+												"mutability": "mutable",
+												"name": "depositId",
+												"nodeType": "VariableDeclaration",
+												"scope": 57,
+												"src": "2407:17:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 54,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "2407:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "2406:19:0"
+									},
+									"scope": 101,
+									"src": "2253:173:0",
+									"stateMutability": "nonpayable",
+									"virtual": false,
+									"visibility": "external"
+								},
+								{
+									"documentation": {
+										"id": 58,
+										"nodeType": "StructuredDocumentation",
+										"src": "2432:420:0",
+										"text": " @notice ERC677 callback for performing a direct deposit.\n Do not call this function directly, it's only intended to be called by the token contract.\n @param from original tokens sender.\n @param amount direct deposit amount.\n @param data encoded address pair - abi.encode(address(fallbackReceiver), bytes(zkAddress))\n @return ok true, if deposit of submitted successfully."
+									},
+									"functionSelector": "a4c0ed36",
+									"id": 69,
+									"implemented": false,
+									"kind": "function",
+									"modifiers": [],
+									"name": "onTokenTransfer",
+									"nodeType": "FunctionDefinition",
+									"parameters": {
+										"id": 65,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 60,
+												"mutability": "mutable",
+												"name": "from",
+												"nodeType": "VariableDeclaration",
+												"scope": 69,
+												"src": "2882:12:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_address",
+													"typeString": "address"
+												},
+												"typeName": {
+													"id": 59,
+													"name": "address",
+													"nodeType": "ElementaryTypeName",
+													"src": "2882:7:0",
+													"stateMutability": "nonpayable",
+													"typeDescriptions": {
+														"typeIdentifier": "t_address",
+														"typeString": "address"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 62,
+												"mutability": "mutable",
+												"name": "amount",
+												"nodeType": "VariableDeclaration",
+												"scope": 69,
+												"src": "2896:14:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 61,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "2896:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 64,
+												"mutability": "mutable",
+												"name": "data",
+												"nodeType": "VariableDeclaration",
+												"scope": 69,
+												"src": "2912:17:0",
+												"stateVariable": false,
+												"storageLocation": "memory",
+												"typeDescriptions": {
+													"typeIdentifier": "t_bytes_memory_ptr",
+													"typeString": "bytes"
+												},
+												"typeName": {
+													"id": 63,
+													"name": "bytes",
+													"nodeType": "ElementaryTypeName",
+													"src": "2912:5:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_bytes_storage_ptr",
+														"typeString": "bytes"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "2881:49:0"
+									},
+									"returnParameters": {
+										"id": 68,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 67,
+												"mutability": "mutable",
+												"name": "ok",
+												"nodeType": "VariableDeclaration",
+												"scope": 69,
+												"src": "2949:7:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_bool",
+													"typeString": "bool"
+												},
+												"typeName": {
+													"id": 66,
+													"name": "bool",
+													"nodeType": "ElementaryTypeName",
+													"src": "2949:4:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_bool",
+														"typeString": "bool"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "2948:9:0"
+									},
+									"scope": 101,
+									"src": "2857:101:0",
+									"stateMutability": "nonpayable",
+									"virtual": false,
+									"visibility": "external"
+								},
+								{
+									"documentation": {
+										"id": 70,
+										"nodeType": "StructuredDocumentation",
+										"src": "2964:135:0",
+										"text": " @notice Tells the direct deposit fee, in zkBOB units (9 decimals).\n @return fee direct deposit submission fee."
+									},
+									"functionSelector": "35d3cbcc",
+									"id": 75,
+									"implemented": false,
+									"kind": "function",
+									"modifiers": [],
+									"name": "directDepositFee",
+									"nodeType": "FunctionDefinition",
+									"parameters": {
+										"id": 71,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "3129:2:0"
+									},
+									"returnParameters": {
+										"id": 74,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 73,
+												"mutability": "mutable",
+												"name": "fee",
+												"nodeType": "VariableDeclaration",
+												"scope": 75,
+												"src": "3155:10:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint64",
+													"typeString": "uint64"
+												},
+												"typeName": {
+													"id": 72,
+													"name": "uint64",
+													"nodeType": "ElementaryTypeName",
+													"src": "3155:6:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint64",
+														"typeString": "uint64"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "3154:12:0"
+									},
+									"scope": 101,
+									"src": "3104:63:0",
+									"stateMutability": "view",
+									"virtual": false,
+									"visibility": "external"
+								},
+								{
+									"documentation": {
+										"id": 76,
+										"nodeType": "StructuredDocumentation",
+										"src": "3173:145:0",
+										"text": " @notice Tells the timeout after which unprocessed direct deposits can be refunded.\n @return timeout duration in seconds."
+									},
+									"functionSelector": "b130603e",
+									"id": 81,
+									"implemented": false,
+									"kind": "function",
+									"modifiers": [],
+									"name": "directDepositTimeout",
+									"nodeType": "FunctionDefinition",
+									"parameters": {
+										"id": 77,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "3352:2:0"
+									},
+									"returnParameters": {
+										"id": 80,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 79,
+												"mutability": "mutable",
+												"name": "timeout",
+												"nodeType": "VariableDeclaration",
+												"scope": 81,
+												"src": "3378:14:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint40",
+													"typeString": "uint40"
+												},
+												"typeName": {
+													"id": 78,
+													"name": "uint40",
+													"nodeType": "ElementaryTypeName",
+													"src": "3378:6:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint40",
+														"typeString": "uint40"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "3377:16:0"
+									},
+									"scope": 101,
+									"src": "3323:71:0",
+									"stateMutability": "view",
+									"virtual": false,
+									"visibility": "external"
+								},
+								{
+									"documentation": {
+										"id": 82,
+										"nodeType": "StructuredDocumentation",
+										"src": "3400:109:0",
+										"text": " @notice Tells the nonce of next direct deposit.\n @return nonce direct deposit nonce."
+									},
+									"functionSelector": "b85369e6",
+									"id": 87,
+									"implemented": false,
+									"kind": "function",
+									"modifiers": [],
+									"name": "directDepositNonce",
+									"nodeType": "FunctionDefinition",
+									"parameters": {
+										"id": 83,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "3541:2:0"
+									},
+									"returnParameters": {
+										"id": 86,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 85,
+												"mutability": "mutable",
+												"name": "nonce",
+												"nodeType": "VariableDeclaration",
+												"scope": 87,
+												"src": "3567:12:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint32",
+													"typeString": "uint32"
+												},
+												"typeName": {
+													"id": 84,
+													"name": "uint32",
+													"nodeType": "ElementaryTypeName",
+													"src": "3567:6:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint32",
+														"typeString": "uint32"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "3566:14:0"
+									},
+									"scope": 101,
+									"src": "3514:67:0",
+									"stateMutability": "view",
+									"virtual": false,
+									"visibility": "external"
+								},
+								{
+									"documentation": {
+										"id": 88,
+										"nodeType": "StructuredDocumentation",
+										"src": "3587:257:0",
+										"text": " @notice Refunds specified direct deposit.\n Can be called by anyone, but only after the configured timeout has passed.\n Function will revert for deposit that is not pending.\n @param index deposit id to issue a refund for."
+									},
+									"functionSelector": "d7f59caa",
+									"id": 93,
+									"implemented": false,
+									"kind": "function",
+									"modifiers": [],
+									"name": "refundDirectDeposit",
+									"nodeType": "FunctionDefinition",
+									"parameters": {
+										"id": 91,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 90,
+												"mutability": "mutable",
+												"name": "index",
+												"nodeType": "VariableDeclaration",
+												"scope": 93,
+												"src": "3878:13:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 89,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "3878:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "3877:15:0"
+									},
+									"returnParameters": {
+										"id": 92,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "3901:0:0"
+									},
+									"scope": 101,
+									"src": "3849:53:0",
+									"stateMutability": "nonpayable",
+									"virtual": false,
+									"visibility": "external"
+								},
+								{
+									"documentation": {
+										"id": 94,
+										"nodeType": "StructuredDocumentation",
+										"src": "3908:277:0",
+										"text": " @notice Refunds multiple direct deposits.\n Can be called by anyone, but only after the configured timeout has passed.\n Function will do nothing for non-pending deposits and will not revert.\n @param indices deposit ids to issue a refund for."
+									},
+									"functionSelector": "68dc1c55",
+									"id": 100,
+									"implemented": false,
+									"kind": "function",
+									"modifiers": [],
+									"name": "refundDirectDeposit",
+									"nodeType": "FunctionDefinition",
+									"parameters": {
+										"id": 98,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 97,
+												"mutability": "mutable",
+												"name": "indices",
+												"nodeType": "VariableDeclaration",
+												"scope": 100,
+												"src": "4219:24:0",
+												"stateVariable": false,
+												"storageLocation": "memory",
+												"typeDescriptions": {
+													"typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+													"typeString": "uint256[]"
+												},
+												"typeName": {
+													"baseType": {
+														"id": 95,
+														"name": "uint256",
+														"nodeType": "ElementaryTypeName",
+														"src": "4219:7:0",
+														"typeDescriptions": {
+															"typeIdentifier": "t_uint256",
+															"typeString": "uint256"
+														}
+													},
+													"id": 96,
+													"nodeType": "ArrayTypeName",
+													"src": "4219:9:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+														"typeString": "uint256[]"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "4218:26:0"
+									},
+									"returnParameters": {
+										"id": 99,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "4253:0:0"
+									},
+									"scope": 101,
+									"src": "4190:64:0",
+									"stateMutability": "nonpayable",
+									"virtual": false,
+									"visibility": "external"
+								}
+							],
+							"scope": 102,
+							"src": "58:4198:0"
+						}
+					],
+					"src": "33:4223:0"
+				},
+				"id": 0
+			}
+		}
+	}
+}
