@@ -13,11 +13,19 @@ import * as process from "process";
 const app = express();
 const port = 8080;
 
+let verificationResult = false;
+
 app.use(express.static('static'));
 
 app.get("/api/sign-in", (req:any, res) => {
     console.log('get Auth Request');
+    verificationResult = false;
     GetAuthRequest(req,res);
+});
+
+app.get("/api/verificationResult", (req:any, res) => {
+    console.log('result polled');
+    res.status(200).json({ verificationResult: verificationResult });
 });
 
 app.post("/api/callback", (req:any, res) => {
@@ -132,6 +140,6 @@ async function Callback(req:any,res) {
         console.log("error", error)
         return res.status(500).send(error);
     }
-    console.log("authResponse", authResponse)
+    console.log("authResponse", JSON.stringify(authResponse))
     return res.status(200).set('Content-Type', 'application/json').send("user with ID: " + authResponse.from + " Succesfully authenticated");
 }
