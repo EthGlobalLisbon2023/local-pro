@@ -5,9 +5,9 @@ In a production environment secrets would not be comited to the repository.
 But for the simplicity of the demo it will be done here. All "secrets" of this demo can be actually shared publically.
 
 ## Tools Used
-- SAFE Account Abstraction:
+- SAFE Account Abstraction: we generate an EOA and a SAFE for each user and organisation, abstracting away having to manually sign transactions and embedding the logic of the tasks involved in job in the smart account. 
 - zkBOB: private payments from SAFE module to user's zk receiving wallets;
-- Polygon ID:
+- Polygon ID: organisations issue credentials based on tasks completed or specific milestones achieved (number of 5-star ratings). These credentials are issued to users' PolygonID wallet. Other organisations can ask for proofs of these certifications having been issued by other organisations in the past in the form of a zk Proof Request, and users can generated zk Proofs to be verified.
 
 
 ## Front-End: Launch Nextjs App
