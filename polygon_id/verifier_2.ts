@@ -13,19 +13,11 @@ import * as process from "process";
 const app = express();
 const port = 8080;
 
-let verificationResult = false;
-
 app.use(express.static('static'));
 
 app.get("/api/sign-in", (req:any, res) => {
     console.log('get Auth Request');
-    verificationResult = false;
     GetAuthRequest(req,res);
-});
-
-app.get("/api/verificationResult", (req:any, res) => {
-    console.log('result polled');
-    res.status(200).json({ verificationResult: verificationResult });
 });
 
 app.post("/api/callback", (req:any, res) => {
@@ -63,22 +55,80 @@ async function GetAuthRequest(req:any,res) {
     request.thid = '7f38a193-0918-4a48-9fac-36adfdb8b542';
 
     // Add request for a specific proof
-    const proofRequest = {
-        id: 1,
-        circuitId: 'credentialAtomicQuerySigV2',
-        query: {
-            allowedIssuers: ['*'],
-            type: 'Over18',
-            context: 'https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Over18-2.json-ld',
-            credentialSubject: {
-                isOver18: {
-                    $eq: true,
+    // const proofRequest = {
+    //     id: 1,
+    //     circuitId: 'credentialAtomicQuerySigV2',
+    //     query: {
+    //         allowedIssuers: ['*'],
+    //         type: 'Task1isDone',
+    //         context: 'https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Task1Done.json-ld',
+    //         credentialSubject: {
+    //             isDone: {
+    //                 $eq: true,
+    //             },
+    //         },
+    //     },
+    // };
+    // const proofRequest = {
+    //     id: 1,
+    //     circuitId: 'credentialAtomicQuerySigV2',
+    //     query: [
+    //         {
+    //             allowedIssuers: ['*'],
+    //             type: 'Task1isDone',
+    //             context: 'https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Task1Done.json-ld',
+    //             credentialSubject: {
+    //                 isDone: {
+    //                     $eq: true,
+    //                 },
+    //             },
+    //         },
+    //         {
+    //             allowedIssuers: ['*'],
+    //             type: 'Over18',
+    //             context: 'https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Over18-2.json-ld',
+    //             credentialSubject: {
+    //                 isOver18: {
+    //                     $eq: true,
+    //                 },
+    //             },
+    //         }
+    //     ]
+    // };
+    const proofRequest = [
+        {
+            id: 1,
+            circuitId: 'credentialAtomicQuerySigV2',
+            query: {
+                    allowedIssuers: ['*'],
+                    type: 'Task1isDone',
+                    context: 'https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Task1Done.json-ld',
+                    credentialSubject: {
+                        isDone: {
+                            $eq: true,
+                        },
+                    },
+                }
+        },
+        {
+            id: 2,
+            circuitId: 'credentialAtomicQuerySigV2',
+            query: {
+                allowedIssuers: ['*'],
+                type: 'Over18',
+                context: 'https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Over18-2.json-ld',
+                credentialSubject: {
+                    isOver18: {
+                        $eq: true,
+                    },
                 },
             },
-        },
-    };
+        }
+    ];
     const scope = request.body.scope ?? [];
-    request.body.scope = [...scope, proofRequest];
+    //request.body.scope = [...scope, proofRequest];
+    request.body.scope = [...scope, ...proofRequest];
+
 
     // Store auth request in map associated with session ID
     requestMap.set(`${sessionId}`, request);
@@ -138,6 +188,6 @@ async function Callback(req:any,res) {
         console.log("error", error)
         return res.status(500).send(error);
     }
-    console.log("authResponse", JSON.stringify(authResponse))
+    console.log("authResponse", authResponse)
     return res.status(200).set('Content-Type', 'application/json').send("user with ID: " + authResponse.from + " Succesfully authenticated");
 }
