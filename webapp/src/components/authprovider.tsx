@@ -7,6 +7,8 @@ import Safe, {
 import { CHAIN_NAMESPACES, WALLET_ADAPTERS } from "@web3auth/base";
 import { Web3AuthOptions } from "@web3auth/modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
+import { setupContract } from "n/chain-utils";
+import { zkBalAbi, zkBalAddress } from "n/chain-utils/config";
 import { formatToUSD, sleep } from "n/utils";
 
 import React, { useState } from "react";
@@ -142,11 +144,31 @@ const AuthProvider = ({ children }: any) => {
 
           const usrinfo = await safeAuthKit.getUserInfo();
           setUserInfo(usrinfo);
-          console.log("bal addr", addr);
+
+          const zkBalContract = await setupContract(zkBalAddress, zkBalAbi);
+          const res = await zkBalContract.balanceOf(
+            "0xE4C77B7787cC116A5E1549c5BB36DE07732100Bb"
+          );
+
+          console.log("getting some things");
+          console.log(res);
+          console.log(res.value);
+
+          let bigNumberInWei = ethers.utils.formatEther(res); // Convert from wei (the smallest unit of ether) to ether
+          let bigNumberAsString = parseFloat(bigNumberInWei).toFixed(2);
+
+          let normalNumber = parseInt(res.toString());
+
+          // 2.4
+          console.log("balance gotten", normalNumber, bigNumberAsString);
+
           const balance = await client.getBalance(addr);
           const prettyBal = ethers.utils.formatEther(balance);
           console.log("bal", prettyBal, balance);
-          setBalance(formatToUSD(prettyBal * ethPrice));
+
+          const numberBal = Number(bigNumberAsString);
+
+          setBalance(formatToUSD(numberBal));
         } catch (err: any) {
           console.error(err);
           setBalance("N/A");
