@@ -23,6 +23,12 @@ app.get("/api/sign-in", (req:any, res) => {
     GetAuthRequest(req,res);
 });
 
+app.get("/api/sign-in-multiple", (req:any, res) => {
+    console.log('get Auth Request');
+    verificationResult = false;
+    GetAuthRequestMultiple(req,res);
+});
+
 app.get("/api/verificationResult", (req:any, res) => {
     console.log('result polled');
     res.status(200).json({ verificationResult: verificationResult });
@@ -40,10 +46,73 @@ app.listen(port, () => {
 // Create a map to store the auth requests and their session IDs
 const requestMap = new Map();
 
+
+// GetQR returns auth request
+async function GetAuthRequestMultiple(req:any,res) {
+
+    console.log("NGROK_VERIFIER", process.env['NGROK_VERIFIER'])
+    // Audience is verifier id
+    const hostUrl = process.env['NGROK_VERIFIER'];
+    const sessionId = 1;
+    const callbackURL = "/api/callback"
+    const audience = "did:polygonid:polygon:mumbai:2qDyy1kEo2AYcP3RT4XGea7BtxsY285szg6yP9SPrs"
+
+    const uri = `${hostUrl}${callbackURL}?sessionId=${sessionId}`;
+
+    // Generate request for basic authentication
+    const request = auth.createAuthorizationRequest(
+        'test flow',
+        audience,
+        uri,
+    );
+
+    request.id = '7f38a193-0918-4a48-9fac-36adfdb8b542';
+    request.thid = '7f38a193-0918-4a48-9fac-36adfdb8b542';
+
+    const proofRequest = [
+        {
+            id: 1,
+            circuitId: 'credentialAtomicQuerySigV2',
+            query: {
+                allowedIssuers: ['*'],
+                type: 'Task1isDone',
+                context: 'https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Task1Done.json-ld',
+                credentialSubject: {
+                    isDone: {
+                        $eq: true,
+                    },
+                },
+            }
+        },
+        {
+            id: 2,
+            circuitId: 'credentialAtomicQuerySigV2',
+            query: {
+                allowedIssuers: ['*'],
+                type: 'Over18',
+                context: 'https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Over18-2.json-ld',
+                credentialSubject: {
+                    isOver18: {
+                        $eq: true,
+                    },
+                },
+            },
+        }
+    ];
+    const scope = request.body.scope ?? [];
+    //request.body.scope = [...scope, proofRequest];
+    request.body.scope = [...scope, ...proofRequest];
+
+
+    // Store auth request in map associated with session ID
+    requestMap.set(`${sessionId}`, request);
+
+    return res.status(200).set('Content-Type', 'application/json').send(request);
+}
+
 // GetQR returns auth request
 async function GetAuthRequest(req:any,res) {
 
-    console.log("NGROK_VERIFIER", process.env['NGROK_VERIFIER'])
     // Audience is verifier id
     const hostUrl = process.env['NGROK_VERIFIER'];
     const sessionId = 1;
@@ -68,14 +137,14 @@ async function GetAuthRequest(req:any,res) {
         circuitId: 'credentialAtomicQuerySigV2',
         query: {
             allowedIssuers: ['*'],
-            type: 'Over18',
-            context: 'https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Over18-2.json-ld',
+            type: 'Task1isDone',
+            context: 'https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Task1Done.json-ld',
             credentialSubject: {
-                isOver18: {
+                isDone: {
                     $eq: true,
                 },
             },
-        },
+        }
     };
     const scope = request.body.scope ?? [];
     request.body.scope = [...scope, proofRequest];
@@ -89,6 +158,7 @@ async function GetAuthRequest(req:any,res) {
 // Callback verifies the proof after sign-in callbacks
 async function Callback(req:any,res) {
 
+    console.log("NGROK_VERIFIER", process.env['NGROK_VERIFIER'])
     // Get session ID from request
     const sessionId = req.query.sessionId;
 
@@ -96,7 +166,7 @@ async function Callback(req:any,res) {
     const raw = await getRawBody(req);
     const tokenStr = raw.toString().trim();
 
-    const ethURL = process.env['RPC_URL'];
+    const ethURL = process.env['RPC_URL']
     const contractAddress = "0x134B1BE34911E39A8397ec6289782989729807a4"
     const keyDIR = "./keys"
 
