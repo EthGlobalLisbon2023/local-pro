@@ -9,7 +9,8 @@
     "start": "ts-node --esm index.ts",
     "examples-start": "ts-node --esm js-sdk-examples-index.ts",
     "playground": "ts-node --esm playground.ts",
-    "verifier": "ts-node --esm verifier.ts"
+    "verifier": "ts-node --esm verifier.ts",
+    "verifier2": "ts-node --esm verifier_2.ts"
   },
   "repository": {
     "type": "git",
