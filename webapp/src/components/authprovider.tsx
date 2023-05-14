@@ -142,7 +142,7 @@ const AuthProvider = ({ children }: any) => {
 
           const usrinfo = await safeAuthKit.getUserInfo();
           setUserInfo(usrinfo);
-
+          console.log("bal addr", addr);
           const balance = await client.getBalance(addr);
           const prettyBal = ethers.utils.formatEther(balance);
           console.log("bal", prettyBal, balance);
