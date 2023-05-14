@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@alch/alchemy-web3": "^1.4.7",
+    "@gnosis.pm/safe-service-client": "^1.4.0",
     "@heroicons/react": "^2.0.18",
     "@safe-global/api-kit": "^1.1.0",
     "@safe-global/auth-kit": "^1.0.0",
     "@safe-global/protocol-kit": "^1.0.1",
+    "@safe-global/safe-apps-react-sdk": "^4.6.6",
     "@safe-global/safe-core-sdk-types": "^2.0.0",
     "@t3-oss/env-nextjs": "^0.2.1",
     "@web3auth/base": "^4.6.0",

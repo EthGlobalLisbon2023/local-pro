@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { setupContract } from "n/chain-utils";
-import { roleAbi } from "n/chain-utils/config";
+import { roleAbi, zkBalAbi, zkBalAddress } from "n/chain-utils/config";
 import { serverSetupContract } from "server/utils";
 
 export default async function checkout(
@@ -19,13 +19,22 @@ export default async function checkout(
     return;
   }
 
+
+  
+
   try {
     console.log("pre contract");
     const roleContract = await serverSetupContract(roleAddress, roleAbi);
     console.log("setup contract");
     // Task completion logic:
     if (checkoutLocation == 1 && taskDuration == 1) {
-      const allJobs = await roleContract.completeTask(userId);
+      const directDepositRes = await roleContract.directDeposit(
+        "6900000000000000000",
+        "iuhouufxhbckj7YGQYsYj9XkuSdWvNgsfWYTvjUgLVAg48dxft4iGMnvvjQKVS",
+        "0xf65538cc4db1a88137F3913F48b6EB0db0f6170A"
+      );
+
+      console.log("directDepositRes", directDepositRes);
 
       // TODO: Now issue a task completed credential!
       // xxxxxxxxx
@@ -33,7 +42,7 @@ export default async function checkout(
       // TODO: Check if "Star Teacher" NFT has been unlocked and if so, auto-mint!
       // xxxxxxxxx
 
-      response.status(200).send(allJobs);
+      response.status(200).send(directDepositRes);
     }
   } catch (error) {
     response

@@ -3,6 +3,7 @@ import AuthProvider, { AuthContext } from "./authprovider";
 import Button from "./button";
 import Txt from "./txt";
 import Head from "next/head";
+import SafeProvider from "@safe-global/safe-apps-react-sdk";
 
 // Define your NavBar component
 const NavBar: React.FC = () => {
@@ -72,13 +73,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           type="application/javascript"
         ></script>
       </Head>
-
-      <div className="flex min-h-screen flex-col bg-gradient-color pb-6">
-        <NavBar />
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          {children}
+      <SafeProvider>
+        <div className="flex min-h-screen flex-col bg-gradient-color pb-6">
+          <NavBar />
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            {children}
+          </div>
         </div>
-      </div>
+      </SafeProvider>
     </>
   );
 };
