@@ -54,47 +54,6 @@ async function GetAuthRequest(req:any,res) {
     request.id = '7f38a193-0918-4a48-9fac-36adfdb8b542';
     request.thid = '7f38a193-0918-4a48-9fac-36adfdb8b542';
 
-    // Add request for a specific proof
-    // const proofRequest = {
-    //     id: 1,
-    //     circuitId: 'credentialAtomicQuerySigV2',
-    //     query: {
-    //         allowedIssuers: ['*'],
-    //         type: 'Task1isDone',
-    //         context: 'https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Task1Done.json-ld',
-    //         credentialSubject: {
-    //             isDone: {
-    //                 $eq: true,
-    //             },
-    //         },
-    //     },
-    // };
-    // const proofRequest = {
-    //     id: 1,
-    //     circuitId: 'credentialAtomicQuerySigV2',
-    //     query: [
-    //         {
-    //             allowedIssuers: ['*'],
-    //             type: 'Task1isDone',
-    //             context: 'https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Task1Done.json-ld',
-    //             credentialSubject: {
-    //                 isDone: {
-    //                     $eq: true,
-    //                 },
-    //             },
-    //         },
-    //         {
-    //             allowedIssuers: ['*'],
-    //             type: 'Over18',
-    //             context: 'https://raw.githubusercontent.com/EthGlobalLisbon2023/local-pro/polygon_id/polygon_id/issuer-schemas/Over18-2.json-ld',
-    //             credentialSubject: {
-    //                 isOver18: {
-    //                     $eq: true,
-    //                 },
-    //             },
-    //         }
-    //     ]
-    // };
     const proofRequest = [
         {
             id: 1,
