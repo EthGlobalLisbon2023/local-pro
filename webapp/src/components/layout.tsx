@@ -22,7 +22,12 @@ const NavBar: React.FC = () => {
         <Txt bold>{userInfo?.name}</Txt>
       </div>
 
-      {balance === "N/A" || balance == null ? (
+
+      <div className="rounded-3xl bg-black/10 p-2">
+          <Txt bold>$17.23</Txt>
+        </div>
+
+      {/* {balance === "N/A" || balance == null ? (
         <Button
           onClick={async () => {
             await signIn();
@@ -34,7 +39,7 @@ const NavBar: React.FC = () => {
         <div className="rounded-3xl bg-black/10 p-2">
           <Txt bold>{balance}</Txt>
         </div>
-      )}
+      )} */}
 
       {/* <button
         className="border"
